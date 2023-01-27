@@ -16,6 +16,7 @@
 <body>
  @include('Public.Header') 
     @yield('register-content')
+    @yield('login-content')
  @include('Public.Footer')
 </body>
 </html>

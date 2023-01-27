@@ -16,6 +16,8 @@
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
  @include('Admin.Header') 
  <div class="content-wrapper">
+   @yield('admindashboard')
+   <h2>hi</h2>
 </div>  
  @include('Admin.Footer')
 </body>

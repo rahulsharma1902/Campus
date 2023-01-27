@@ -14,4 +14,7 @@ class MainController extends Controller
     public function register(){
         return view('Public.auth.Register.index');
     }
+    public function login(){
+        return view('Public.auth.Login.index');
+    }
 }
