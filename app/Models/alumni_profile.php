@@ -9,4 +9,5 @@ class alumni_profile extends Model
 {
     use HasFactory;
     protected $table = 'alumni_profiles';
+
 }
