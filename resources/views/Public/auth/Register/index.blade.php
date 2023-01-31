@@ -53,6 +53,15 @@
                             <input type="phone" class="form-control" name='phone_number' id="phone-number" placeholder="Enter phone" required>
                         </div>
                         <div class="form-group">
+                            <label for="password">User Type</label>
+                            <select class="form-control select2 select2-danger select2-hidden-accessible" name="user_type" data-dropdown-css-class="select2-danger" style="width: 100%;" data-select2-id="12" tabindex="-1" aria-hidden="true">
+                                <option selected="selected" value="2" >Student</option>
+                                <option value="3">Staff</option>
+                                <option value="4">Sponsers</option>
+                                <option value="5">Alumni</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="username">User Name</label>
                             <input type="text" class="form-control"name='username' id="username" aria-describedby="userHelp" placeholder="Enter username" required>
                             <small id="userHelp" class="form-text text-muted">Your username must be unique.</small>

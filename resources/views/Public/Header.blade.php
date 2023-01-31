@@ -7,7 +7,14 @@
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
     </ul>
-     <a href="/login"><button class="btn btn-outline-success my-2 mr-2 my-sm-0">Login</button></a> 
-     <a href="/register"><button class="btn btn-outline-warning my-2 my-sm-0">Register</button></a> 
+    @if (Auth::guest())
+    <a href="/login"><button class="btn btn-info my-2 mr-2 my-sm-0">Login</button></a> 
+     <a href="/register"><button class="btn btn-warning my-2 my-sm-0">Register</button></a> 
+    @else
+    <a href="/profile/{{Auth::user()->user_type}}"><button class="btn btn-sm btn-dark my-2 mr-2 my-sm-0"><i class="fas fa-users-cog"></i>Manage Account</button></a> 
+
+    <a href="/logout"><button type="button" class="btn btn-danger btn-block btn-sm"><i class="fas fa-sign-out-alt"></i>Log-Out</button></a>
+      @endif
+   
   </div>
 </nav>

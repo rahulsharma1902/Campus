@@ -156,16 +156,54 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li class="nav-item">
-            <a href="/" class="nav-link active">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a href="{{url('/admindash/dashboard') }}" class="nav-link {{ (request()->segment(2) == 'dashboard') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
               Dashboard
               </p>
             </a>
           </li>
-        </ul>
+          <li class="nav-item">
+          <a href="{{url('/admindash/dashboard/userrequests')}}" class="nav-link text-{{ (request()->segment(3) == 'userrequests') ? 'info' : '' }}">
+                    <i class=" far fa-circle nav-icon"></i>
+                    <p>User Requests</p>
+          </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{url('admindash/Colleges') }}" class="nav-link {{ (request()->segment(2) == 'Colleges') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-graduation-cap"></i>
+              <p>
+              Colleges
+              </p>
+            </a>
+          </li>
+            <li class="nav-item ">
+            <a href="{{url('admindash/Colleges/name')}}" class="nav-link text-{{ (request()->segment(3) == 'name') ? 'info' : '' }}">
+                      <i class=" far fa-circle nav-icon"></i>
+                      <p>College Name</p>
+            </a>
+            </li>
+            <li class="nav-item">
+            <a href="{{url('admindash/Colleges/Courses')}}" class="nav-link text-{{ (request()->segment(3) == 'Courses') ? 'info' : '' }}">
+                      <i class=" far fa-circle nav-icon"></i>
+                      <p>College Course</p>
+            </a>
+            </li>
+            <li class="nav-item">
+            <a href="{{url('admindash/Colleges/Dept')}}" class="nav-link text-{{ (request()->segment(3) == 'Dept') ? 'info' : '' }}">
+                      <i class=" far fa-circle nav-icon"></i>
+                      <p>College Dept</p>
+            </a>
+            </li>
+            <li class="nav-item">
+            <a href="{{url('admindash/Colleges/Position')}}" class="nav-link text-{{ (request()->segment(3) == 'Position') ? 'info' : '' }}">
+                      <i class=" far fa-circle nav-icon"></i>
+                      <p>College Positions</p>
+            </a>
+            </li>
+            </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>

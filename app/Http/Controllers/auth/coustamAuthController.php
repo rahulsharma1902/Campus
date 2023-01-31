@@ -31,6 +31,8 @@ class coustamAuthController extends Controller
                 $user->phone_number = $request['phone_number'];
                 $user->username = $request['username'];
                 $user->password = $password;
+                $user->user_type = $request['user_type'];
+                $user->status = 0;
                 $user->save();
                 return view('Public.auth.Register.index')->with('success', 'you account has been active in 24 hours');
     }
@@ -44,12 +46,17 @@ class coustamAuthController extends Controller
                 $user_type =  Auth::user()->user_type; 
                 print_r($user_type);
                 if($user_type == 1){
-                    return redirect('/admindash')->with('success','Welcome in Admin Panel');
+                    return redirect('/admindash/dashboard')->with('success','Welcome in Admin Panel');
                 }else{
                     return redirect('/')->with('success', 'Welcome '.$user->real_name.' '.$user->nick_name);
                 }
     }else{
         return redirect('/login')->with('error', 'Incorrect email or password');
     }
+    }
+    public function logout(){
+        Auth::logout();
+        Session::flush();
+        return redirect('/login')->with('success', 'You have been logged out!');;
     }
 }
