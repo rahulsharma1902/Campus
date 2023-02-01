@@ -34,7 +34,7 @@ class coustamAuthController extends Controller
                 $user->user_type = $request['user_type'];
                 $user->status = 0;
                 $user->save();
-                return view('Public.auth.Register.index')->with('success', 'you account has been active in 24 hours');
+                return redirect('/register')->with('success', 'you account has been active in 24 hours');
     }
 
     public function login(Request $request){

@@ -28,9 +28,9 @@
                                             {{$message}}
                                         </div>
                                         @endif
-            <div class="card card-success">
+            <div class="card card-success mt-4">
               <div class="card-header">
-                <h3 class="card-title">Register</h3>
+                <h3 class="card-title ">L O G I N</h3>
               </div>
               <div class="card-body">
                 <form action="/userlogin" method="get">

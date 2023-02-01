@@ -18,13 +18,17 @@ class Profile extends Controller
       if(Auth::user()->user_type == 2){
         return redirect('/studentprofile');
       }if(Auth::user()->user_type == 3){
-        return redirect('/studentprofile');
+        return redirect('/staffprofile');
       }if(Auth::user()->user_type == 4){
-        return redirect('/studentprofile');
+        return redirect('/sponserprofile');
       }if(Auth::user()->user_type == 5){
-        return redirect('/studentprofile');
+        return redirect('/alumniprofile');
+      }if(Auth::user()->user_type == 1){
+        return redirect('/admindash/dashboard');
       }else{
-        redirect('/');
+          return redirect('/');
       }
     }
+
+  
 }

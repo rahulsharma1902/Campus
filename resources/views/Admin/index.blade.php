@@ -148,4 +148,5 @@ $('.deleteCourse').click(function(e){
 
 
    </script>
+   
 </html>

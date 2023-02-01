@@ -28,9 +28,9 @@
                                             {{$message}}
                                         </div>
                                         @endif
-            <div class="card card-success">
+            <div class="card card-success mt-4">
               <div class="card-header">
-                <h3 class="card-title">Register</h3>
+                <h3 class="card-title">R E G I S T E R</h3>
               </div>
               <div class="card-body">
                 <form action="/saveregister" method="get">
@@ -53,8 +53,8 @@
                             <input type="phone" class="form-control" name='phone_number' id="phone-number" placeholder="Enter phone" required>
                         </div>
                         <div class="form-group">
-                            <label for="password">User Type</label>
-                            <select class="form-control select2 select2-danger select2-hidden-accessible" name="user_type" data-dropdown-css-class="select2-danger" style="width: 100%;" data-select2-id="12" tabindex="-1" aria-hidden="true">
+                            <label for="user_type">User Type</label>
+                            <select class="form-control select2 select2-danger select2-hidden-accessible" id='user_type' name="user_type" data-dropdown-css-class="select2-danger" style="width: 100%;" data-select2-id="12" tabindex="-1" aria-hidden="true">
                                 <option selected="selected" value="2" >Student</option>
                                 <option value="3">Staff</option>
                                 <option value="4">Sponsers</option>

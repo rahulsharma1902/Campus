@@ -9,8 +9,10 @@ use App\Http\Controllers\Admin\colleges\Collegecourse;
 use App\Http\Controllers\Admin\colleges\CollegeDept;
 use App\Http\Controllers\Admin\colleges\CollegePosition;
 use App\Http\Middleware\Adminaccess;
-use App\Http\Controllers\Public\StudentProfile;
+use App\Http\Middleware\StudentsProfile;
 use App\Http\Controllers\Public\Profile;
+use App\Http\Controllers\Public\StudentProfile;
+use App\Http\Controllers\Public\AlumniProfile;
 
 
 /*
@@ -66,7 +68,17 @@ Route::get('/userlogin',[coustamAuthController::class, 'login']);
 
 Route::get('/logout', [coustamAuthController::class, 'logout']);
 
-//Student Profile 
+// Profile dashboard
 Route::get('/profile',[Profile::class, 'index']);
-Route::get('/studentprofile',[StudentProfile::class, 'index']);
+//Student Profile 
+Route::get('/studentprofile',[StudentProfile::class, 'index'])->middleware(StudentsProfile::class);
+Route::POST('/studentprofile/save',[StudentProfile::class, 'save'])->middleware(StudentsProfile::class);
+Route::post('/studentprofile/upload',[StudentProfile::class, 'profilepicture'])->middleware(StudentsProfile::class);
+Route::get('/studentprofile/getCoursesByCollege',[StudentProfile::class, 'getCoursesByCollege'])->middleware(StudentsProfile::class);
 Route::get('/trycode',[StudentProfile::class, 'trycode']);
+
+
+// Alumni Profile
+Route::get('/alumniprofile',[AlumniProfile::class, 'index']);
+Route::POST('/alumniprofile/save',[AlumniProfile::class, 'save']);
+Route::post('/alumniprofile/upload',[AlumniProfile::class, 'profilepicture']);
