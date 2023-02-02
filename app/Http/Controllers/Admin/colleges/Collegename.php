@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\college_name;
+use App\Models\staff_profile;
 // use Auth;
 use Session;
 use Illuminate\Validation\Rule;
@@ -15,6 +16,8 @@ class Collegename extends Controller
     //
     public function index(){
             $colleges = college_name::orderBy('college_name', 'asc')->paginate(10);
+            // $phone = college_name::find(6)->collegename;
+            // dd($phone);
             return view('Admin.Colleges.CollegeName.index', compact('colleges'));
     }
     public function Addcolleges(Request $request){

@@ -18,9 +18,9 @@ class Profile extends Controller
       if(Auth::user()->user_type == 2){
         return redirect('/studentprofile');
       }if(Auth::user()->user_type == 3){
-        return redirect('/staffprofile');
+        return redirect('/Staff/profile');
       }if(Auth::user()->user_type == 4){
-        return redirect('/sponserprofile');
+        return redirect('/Sponsor/profile');
       }if(Auth::user()->user_type == 5){
         return redirect('/alumniprofile');
       }if(Auth::user()->user_type == 1){

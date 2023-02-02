@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class staff_profile extends Model
 {
     use HasFactory;
+    public function collegename()
+    {
+        return $this->hasOne(college_name::class, 'college_id', 'id');
+    }
 }
