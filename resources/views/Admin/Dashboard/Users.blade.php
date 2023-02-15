@@ -6,7 +6,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Users Requests</h3>
+                <h3 class="card-title">Users</h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -70,6 +70,7 @@
     $('.usertype').change(function(){
        usertype = $(this).val();
         id = $(this).attr('data-id');
+        // alert(id);
         $.ajax({
         method: 'post',
         url: '{{url('/admindash/users/update')}}',

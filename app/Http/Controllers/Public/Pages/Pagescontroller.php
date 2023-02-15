@@ -14,12 +14,21 @@ class Pagescontroller extends Controller
     public function index(){
         $data = Auth()->user();
         $profile = DB::table('staff_profiles')->where('user_id', $data->id)->first();
-        
+        if($profile){
         $college_page = DB::table('college_pages')->where('moderator_id', $profile->id)->first();
-        return view('Public.Staff.AddPages')->with('pagedata',$college_page);
+        if($college_page){
+            return view('Public.Staff.AddPages')->with('pagedata',$college_page);
+
+        }else{
+            return redirect('/Staff/profile')->with('error','You have no college pages');
+
+        }
+        }else{
+            return redirect('/Staff/profile')->with('error','You have no college pages');
+        }
     }
     public function AddPagedata(Request $request){
-    // print_r($request->all());
+    // print_r($request->documents);
     $data = DB::table('student_profiles')->where('college_id', $request->college_id)->get();   
      $population = count($data);
     //  print_r($population);
@@ -32,11 +41,12 @@ class Pagescontroller extends Controller
             array_push($data,$name);
             }
             $gallery = implode(",",$data);
-            // print_r($gallery);
+            print_r($gallery);
         }
         
         
         $request->validate([
+            'images' => 'required|dimensions:min_height=400,max_height=600',
             'college_name' => 'required',
             'history' => 'required',
             'address' => 'required',
@@ -66,6 +76,8 @@ class Pagescontroller extends Controller
             $college_page->update();
             return redirect('/home/pages')->with('success','data uploaded successfully');
         }
+    }else{
+        return redirect()->back()->with('error','Invalid request');
     }
     }
 

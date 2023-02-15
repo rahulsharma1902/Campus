@@ -20,7 +20,7 @@ class CollegePosition extends Controller
         $colleges = college_name::orderBy('college_name', 'asc')->get();
         $positions = \DB::table('positions')
             ->join('college_names', 'positions.college_id', '=', 'college_names.id')
-            ->select('positions.*','college_names.college_name')
+            ->select('positions.*','college_names.college_name')->orderBy('college_id','asc')
             ->paginate(10);
        return view('Admin.Colleges.Position.index', compact('colleges','positions'));
 

@@ -14,11 +14,18 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="{{ url('admin') }}/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('admin') }}/plugins/fontawesome-free/css/all.min.css">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{ url('admin') }}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="{{ asset('admin') }}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ url('admin') }}/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="{{ asset('admin') }}/dist/css/adminlte.min.css">
+    <script src="{{ asset('admin')}}/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{{ asset('admin')}}/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+<!-- Bootstrap 4 -->
+<script src="{{ asset('admin')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
 .question:not(.active) {
@@ -40,8 +47,6 @@
         @yield('collegeTemplate')
     </div>
     @include('Admin.Footer')
-</body>
-<!-- conver text editor to  -->
 <script>
 ClassicEditor
     .create(document.querySelector('#editor'))
@@ -65,14 +70,31 @@ ClassicEditor
 <!-- end -->
 
 <!-- Script for edit and delete of College Name -->
+
+
+<!-- Script of edit and Delete College Course -->
 <script>
-$('.deletebutton').click(function(e) {
+
+
+    $(document).ready(function(){
+    $('.editbutton').click(function(e) {
     e.preventDefault();
+    // alert('done');
+    id = $(this).attr('data-id');
+    name = $(this).attr('data-name');
+    $('#collegeid').val(id);
+    $('#collegename').val(name);
+});
+    });
+$(document).ready(function(){
+    $('.deletebutton').click(function(e) {
+    e.preventDefault();
+    // alert('hlo');
+    // console.log('done');
     id = $(this).attr('data-id');
     $.ajax({
         method: 'post',
-        url: '{{url('
-        admindash / Colleges / delete ')}}',
+        url: '{{url('admindash/Colleges/delete')}}',
         dataType: 'json',
         data: {
             _token: '{{csrf_token()}}',
@@ -83,17 +105,9 @@ $('.deletebutton').click(function(e) {
         }
     });
 });
-$('.editbutton').click(function(e) {
-    e.preventDefault();
-    id = $(this).attr('data-id');
-    name = $(this).attr('data-name');
-    $('#collegeid').val(id);
-    $('#collegename').val(name);
-});
-</script>
 
-<!-- Script of edit and Delete College Course -->
-<script>
+});
+
 $(document).ready(function() {
     $('.editCourse').click(function(e) {
         e.preventDefault();
@@ -122,30 +136,8 @@ $('.deleteCourse').click(function(e) {
         }
     });
 });
-</script>
-<!-- Script for  edit or delete departement  -->
-<script>
-//delete
-$('.deletedept').click(function(e) {
-    e.preventDefault();
-    id = $(this).attr('data-id');
-    //  alert(id);
-    $.ajax({
-        method: 'post',
-        url: '{{url('
-        admindash / Colleges / deletedept ')}}',
-        dataType: 'json',
-        data: {
-            _token: '{{csrf_token()}}',
-            id: id
-        },
-        success: function(response) {
-            location.reload();
-        }
-    });
-});
-//edit
-$(document).ready(function() {
+
+$(document).ready(function(){
     $('.editdept').click(function(e) {
         e.preventDefault();
         id = $(this).attr('data-id');
@@ -156,6 +148,30 @@ $(document).ready(function() {
         $('#deptname').val(cname);
     });
 });
+$(document).ready(function(){
+    $('.deletedept').click(function(e) {
+    e.preventDefault();
+    id = $(this).attr('data-id');
+    //  alert(id);
+    $.ajax({
+        method: 'post',
+        url: '{{url('admindash/Colleges/deletedept')}}',
+        dataType: 'json',
+        data: {
+            _token: '{{csrf_token()}}',
+            id: id
+        },
+        success: function(response) {
+            location.reload();
+        }
+    });
+});
+});
+
+//delete
+
+//edit
+
 </script>
 <!-- Script for edit or delete Position -->
 <script>
@@ -166,13 +182,9 @@ $('.deleteposition').click(function(e) {
     //  alert(id);
     $.ajax({
         method: 'post',
-        url: '{{url('
-        admindash / Colleges / deleteposition ')}}',
+        url: '{{url('admindash/Colleges/deleteposition')}}',
         dataType: 'json',
-        data: {
-            _token: '{{csrf_token()}}',
-            id: id
-        },
+        data: { _token: '{{csrf_token()}}',id: id},
         success: function(response) {
             location.reload();
         }
@@ -253,4 +265,8 @@ $(document).ready(function() {
     });
 });
 </script>
+
+</body>
+<!-- conver text editor to  -->
+
 </html>

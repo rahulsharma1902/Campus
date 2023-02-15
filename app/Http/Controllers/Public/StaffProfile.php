@@ -14,16 +14,20 @@ class StaffProfile extends Controller
     public function index(){
         $colleges = college_name::get();
         $id = Auth()->id();
+        // print_r($id);
         $userdata =  DB::table('staff_profiles')->where('user_id', $id)->join('depts', 'staff_profiles.dept_id', '=', 'depts.id')->join('positions', 'staff_profiles.position_id', '=', 'positions.id')->join('college_names', 'staff_profiles.college_id', '=', 'college_names.id')->select('staff_profiles.*','college_names.college_name','positions.position_name','depts.dept_name')->first();
-      
+        
         return view('Public/Staff/index')->with('college',$colleges)->with('userdata',$userdata);
     }
     public function profilephoto(Request $request){
         if($request->hasfile('profilepic')){
+            // echo 'done';
             $file = $request->file('profilepic');
             $name = time().rand(1,100).'.'.$file->extension();
-            $file->move(public_path().'/products_images/', $name); 
+            $file->move(public_path().'/Profile_images/', $name); 
+            // echo $name;
             $user = DB::table('staff_profiles')->where('user_id', $request->user_id)->first();
+            // print_r($user->id);
             if(!empty($user)){
                 $staff_profile = Staff_profile::where('user_id', '=',  $request->user_id)->first(); 
                 $staff_profile->picture = $name;

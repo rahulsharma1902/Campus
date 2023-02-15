@@ -30,7 +30,7 @@
                     @csrf
                 <input type="hidden" name="user_id" value="{{$staff_id->id}}">
                 <label for="file">
-                  <img class="profile-user-img img-fluid img-circle" src="@if($userdata) {{url('products_images')}}/{{$userdata->picture}} @else{{url('admin')}}/dist/img/user4-128x128.jpg @endif" alt="User profile picture">
+                  <img class="profile-user-img img-fluid img-circle" src="@if($userdata) {{asset('Profile_images')}}/{{$userdata->picture}} @else{{asset('admin')}}/dist/img/user4-128x128.jpg @endif" alt="User profile picture">
                   </label>
                   <input type="file" name="profilepic" id ="file" style="display:none;">
                   <button class="btn btn-block btn-info btn-xs">Upload</button>
@@ -42,7 +42,7 @@
                 <p class="text-muted text-center">@if($userdata){{$userdata->college_name}}@endif</p>
 
                 <ul class="list-group list-group-unbordered mb-3">
-                  <li class="list-group-item">
+                  <!-- <li class="list-group-item">
                     <b>Followers</b> <a class="float-right">1,322</a>
                   </li>
                   <li class="list-group-item">
@@ -50,7 +50,7 @@
                   </li>
                   <li class="list-group-item">
                     <b>Friends</b> <a class="float-right">13,287</a>
-                  </li>
+                  </li> -->
                 </ul>
 
                 
@@ -126,8 +126,8 @@
                         <label for="College" class="col-sm-2 col-form-label">College</label>
                         <div class="col-sm-10">
                            
-                        <select class="form-control select2 select2-hidden-accessible" id ="College" name="college_id" style="width: 100%;" data-select2-id="9" tabindex="-1" aria-hidden="true">
-                            <option selected="selected" value="">Alabama</option>
+                        <select class="form-control select2 select2-hidden-accessible" required id ="College" name="college_id" style="width: 100%;" data-select2-id="9" tabindex="-1" aria-hidden="true">
+                            <option disabled selected value="">Select Your College Name</option>
                             @foreach($college as $c)
                             <option value="{{$c->id}}" >{{$c->college_name}}</option>
                             @endforeach

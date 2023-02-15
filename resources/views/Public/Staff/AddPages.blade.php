@@ -81,12 +81,16 @@
 
 
                         <div class="form-group">
-                            <label for="images">Image</label>
-                            <input type="file" class='form-control' name='images' id='images'>
+                            <label for="images"><a class="btn btn-primary"> College Image</a></label>
+                            <input type="file" class='form-control' name='images' id='images' style="display:none;">
+                            <span class="text-danger">*Required 1920 X 1280 Image</span>
                         </div>
                         <div class="form-group">
-                            <label for="images">Image</label>
-                            <input type="file" class='form-control' name='documents[]' id='images' multiple>
+                            <label for="images">Gallery Images</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name='documents[]' id="exampleInputFile" multiple>
+                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                            </div>
                         </div>
 
                         <div class="form-group">

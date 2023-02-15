@@ -17,6 +17,10 @@ use App\Http\Controllers\Public\AlumniProfile;
 use App\Http\Controllers\Public\StaffProfile;
 use App\Http\Controllers\Public\SponsorProfile;
 use App\Http\Controllers\Public\Pages\Pagescontroller;
+use App\Http\Controllers\Public\CollegePage\collegepage;
+use App\Http\Controllers\Public\CollegePage\joinPage;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -106,3 +110,21 @@ Route::post('/Staff/profile/insert',[StaffProfile::class,'AddStaffData']);
 Route::post('/Staff/profile/collegedata',[StaffProfile::class,'getcollegedata']);
 Route::get('home/pages',[Pagescontroller::class,'index']);
 Route::post('home/pages/addPagesdata',[Pagescontroller::class,'AddPagedata']);
+
+
+
+//College pages
+// Route::get('/collegePages',[CollegePages::class,'index']);
+// Route::get('/collegePages', function () {
+//     return view('Public.Home.CollegePages.index');
+// });
+Route::get('/collegePages',[collegepage::class, 'index']);
+Route::get('/collegePages/{id}',[collegepage::class, 'SinglePage']);
+
+
+// Join page 
+// Route::get('/joinPage',[collegepage::class,'joinPage']);
+Route::get('/joinPage',[joinPage::class,'joinPage']);
+
+Route::get('/joinPageIndex',[joinPage::class,'index']);
+// Route::get('/collegepages',[CollegePages::class,'index']);

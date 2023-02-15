@@ -33,14 +33,9 @@ class CollegeTemplate extends Controller
         $college_page->status = 0;
         $college_page->save();
         return response()->json(['success' => 'College template Genrate Succefully']); 
-        // return Session::flash('success', 'College template Genrate Succefully'.$moderator_id.$college_id);
     } 
     }
-    // public function index(Request $request , $id){
-    //     $college_id = $id;
-    //     $staff_id = staff_profile::where('college_id', $id)->get();
-    //     return view('Admin.Colleges.CollegeTemplate.index',compact('college_id','staff_id'));
-    // }
+   
     public function createTemplate(Request $request){
         print_r($request->all());
     }

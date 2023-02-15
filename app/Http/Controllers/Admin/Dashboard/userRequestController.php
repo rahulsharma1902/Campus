@@ -18,17 +18,13 @@ class userRequestController extends Controller
             $user = User::find($request->id);
             $user->status = $request->res;
             $user->save();
-            if($user->save()){
-                $mailData = [
-                    'subject' => 'Dear'. $user->real_name,
-                    'body' => 'Your request hasbeen accepted please login using username and password',
-                ];
-            \Mail::to($user->email)->send(new NotifyMail($mailData));
+           
             return response()->json('successfully accepted');
-            }
+            
         }else{
             User::where('id',$request->id)->delete();
             return response()->json('successfully rejected');
         } 
        }
-}
+    }
+

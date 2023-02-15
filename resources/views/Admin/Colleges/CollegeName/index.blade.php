@@ -95,5 +95,8 @@
         </table>
     </div>
 </section>
+<script>
+
+</script>
 
 @endsection

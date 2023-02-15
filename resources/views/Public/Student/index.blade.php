@@ -39,8 +39,7 @@
                                     enctype="multipart/form-data">
                                     @csrf
                                     <label for="profilepic">
-                                        <img class="profile-user-img img-fluid img-circle" src=" @if (!empty($s_p->picture))
-                                            {{ url('/Profile_images') }}/{{$s_p->picture}}  
+                                        <img class="profile-user-img img-fluid img-circle" src="@if (!empty($s_p->picture)){{asset('/Profile_images')}}/{{$s_p->picture}}  
                                             @else
                                             http://bootdey.com/img/Content/avatar/avatar1.png   
                                             @endif  
