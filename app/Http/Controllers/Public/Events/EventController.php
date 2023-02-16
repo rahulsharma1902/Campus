@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Auth;
 class EventController extends Controller
 {
     public function index(){
-       
+       $events = null;
         
         if(Auth::user()){
         $event_request = DB::table('event_guests')->where('user_id',Auth::user()->id)->get();
@@ -111,12 +111,17 @@ class EventController extends Controller
         ->where('status', '=', 0)
         ->get();
         // print_r(count($event_request));
+        // print_r($event_request);
+        // die();
         
-        $event = array();
+        $event = null;
         if(count($event_request) > 0){
         foreach($event_request as $event_request){
             // echo $event_request->event_id;
-            $event[] = event::find($event_request->event_id)->first();
+            $event[] = DB::table('events')->where('id', '=', $event_request->event_id)->get();
+            // $event[] = event::find($event_request->event_id)->first();
+            
+            // print_r($event);
         }
         // echo '<pre>';
         // print_r($event);
@@ -124,8 +129,11 @@ class EventController extends Controller
         // print_r(count($event));
         // die();
         return view('Public.Home.Events.eventrequests',compact('event'));
-    }
+    }else{
+    $event = array();
+
     return view('Public.Home.Events.eventrequests',compact('event'));
+    }
 
     }
     public function acceptevent(Request $request){
@@ -133,11 +141,11 @@ class EventController extends Controller
             DB::table('event_guests')->where('event_id', $request->event_id)
             ->where('user_id', '=', Auth::user()->id)
             ->update(['status' => 1]);
-            return response()->json([$request->event_id]);
+            return response()->json(['Invitation accepted']);
         }else{
             return response()->json(['Failed to Accept Event']);
         }
-        return response()->json(['Failed to Accept Event']);
+        // return response()->json(['Failed to Accept Event']);
 
     }
     public function declineevent(Request $request){
@@ -150,7 +158,7 @@ class EventController extends Controller
   
             return response()->json(['Failed to Declined']);
          }
-         return response()->json([$request->event_id]);
+        //  return response()->json([$request->event_id]);
 
     }
     public function sponsorrequest(Request $request){

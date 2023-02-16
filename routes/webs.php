@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Public\MainController;
 use App\Http\Controllers\auth\coustamAuthController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
-use App\Http\Controllers\Admin\Dashboard\userRequestController;
 use App\Http\Controllers\Admin\colleges\Collegename;
 use App\Http\Controllers\Admin\colleges\Collegecourse;
 use App\Http\Controllers\Admin\colleges\CollegeDept;
@@ -19,9 +18,8 @@ use App\Http\Controllers\Public\StaffProfile;
 use App\Http\Controllers\Public\SponsorProfile;
 use App\Http\Controllers\Public\Pages\Pagescontroller;
 use App\Http\Controllers\Public\CollegePage\collegepage;
-use App\Http\Controllers\Public\CollegePage\joinPages;
-use App\Http\Controllers\Public\GroupsController;
-use App\Http\Controllers\Public\Events\EventController;
+use App\Http\Controllers\Public\CollegePage\joinPage;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +38,6 @@ use App\Http\Controllers\Public\Events\EventController;
 // Admin Routes
 Route::get('/admindash/dashboard',[DashboardController::class, 'index'])->middleware(Adminaccess::class);
 Route::get('/admindash/dashboard/userrequests',[DashboardController::class, 'userrequests'])->middleware(Adminaccess::class);
-Route::post('/admindash/dashboard/response',[userRequestController::class,'userrequestsresponse']);
 Route::get('/admindash/users',[DashboardController::class,'Users'])->middleware(Adminaccess::class);
 Route::post('/admindash/users/update',[DashboardController::class,'update'])->middleware(Adminaccess::class);
 
@@ -76,7 +73,6 @@ Route::post('admindash/Colleges/createTemplate',[CollegeTemplate::class,'createT
 
 
 Route::get('/',[MainController::class, 'index']);
-Route::get('/home',[MainController::class, 'home']);
 
 Route::get('/register', [MainController::class, 'register']);
 Route::get('/saveregister', [coustamAuthController::class, 'register']);
@@ -85,15 +81,6 @@ Route::get('/login', [MainController::class, 'login']);
 Route::get('/userlogin',[coustamAuthController::class, 'login']);
 
 Route::get('/logout', [coustamAuthController::class, 'logout']);
-// Routes for Groups
-Route::get('/groups', [GroupsController::class, 'index']);
-Route::get('/addGroup', [GroupsController::class, 'addGroup']);
-Route::get('/sendMessage', [GroupsController::class, 'sendMessage']);
-Route::get('/deletegrp', [GroupsController::class, 'deletegrp']);
-Route::get('/addGrpUser', [GroupsController::class, 'addGrpUser']);
-Route::get('/addgrpmember', [GroupsController::class, 'addgrpmember']);
-Route::get('/newmembers', [GroupsController::class, 'newmembers']);
-
 
 // Profile dashboard
 Route::get('/profile',[Profile::class, 'index']);
@@ -125,12 +112,6 @@ Route::get('home/pages',[Pagescontroller::class,'index']);
 Route::post('home/pages/addPagesdata',[Pagescontroller::class,'AddPagedata']);
 
 
-// try Route
-
-// Route::get('/home/trycode/', function (){
-//     Artisan::call('make:model sponsership -m');
-// });
-// Route::get('/home/collegePage',[collegepage::class, 'index']);
 
 //College pages
 // Route::get('/collegePages',[CollegePages::class,'index']);
@@ -140,30 +121,10 @@ Route::post('home/pages/addPagesdata',[Pagescontroller::class,'AddPagedata']);
 Route::get('/collegePages',[collegepage::class, 'index']);
 Route::get('/collegePages/{id}',[collegepage::class, 'SinglePage']);
 
-Route::post('/addposts',[collegepage::class,'addPost']);
-Route::get('/deletepost',[collegepage::class,'deletePost']);
+
 // Join page 
 // Route::get('/joinPage',[collegepage::class,'joinPage']);
-Route::get('/joinPage',[joinPages::class,'joinPage']);
+Route::get('/joinPage',[joinPage::class,'joinPage']);
 
-Route::get('/joinPageIndex',[joinPages::class,'index']);
+Route::get('/joinPageIndex',[joinPage::class,'index']);
 // Route::get('/collegepages',[CollegePages::class,'index']);
-
-
-
-// Events Routes
-
-Route::get('/events',[EventController::class, 'index']);
-Route::get('/createevent',[EventController::class, 'createevent']);
-Route::post('/saveevent',[EventController::class, 'saveevent']);
-Route::get('/eventrequests',[EventController::class, 'eventrequests']);
-Route::get('/acceptevent',[EventController::class, 'acceptevent']);
-Route::get('/declineevent',[EventController::class, 'declineevent']);
-Route::post('/sponsorrequest',[EventController::class, 'sponsorrequest']);
-Route::post('/getsponsorid',[EventController::class, 'Getsponsorshipid']);
-Route::get('/events/myevents',[EventController::class, 'myevents']);
-Route::post('/sponsorrequests',[EventController::class, 'SponsorRequests']);
-Route::get('/sponsorrequests/accepted/{id?}',[EventController::class, 'SponsorRequestaccepted']);
-Route::get('/sponsorrequests/denied{id?}',[EventController::class, 'SponsorRequestdenied']);
-
-

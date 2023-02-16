@@ -9,6 +9,9 @@
             <a href="/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
+            <a href="{{url('projectgroups')}}" class="nav-link">Projects</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
             <a href="/collegePages" class="nav-link">College Pages</a>
         </li>
         @if(Auth::user())
@@ -21,6 +24,7 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="/events" class="nav-link">Events</a>
         </li>
+
     </ul>
 
     <!-- Right navbar links -->
@@ -39,8 +43,13 @@
             </a>
         </li>
         @else
+        <li class="nav-item">
+            <a class="nav-link" href="/addfriends">
+                <i class="fas fa-user-plus"></i>
+            </a>
+        </li>
         <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown">  
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">15</span>

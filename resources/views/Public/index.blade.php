@@ -61,10 +61,11 @@
     @yield('student_profile')
     @yield('alumni_profile')
     @yield('college_pages')
+    @yield('project_pages')
     @yield('Singlecollege_pages')
     @yield('events')
     @yield('groups')
-
+    @yield('addfriends')
     <!-- </div> -->
     @include('Public.Footer')
 
