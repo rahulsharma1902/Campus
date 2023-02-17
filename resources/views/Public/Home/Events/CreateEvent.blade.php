@@ -11,7 +11,7 @@
                     </div>
                     <div class="form-group">
                         <label for="slug-text">Slug</label>
-                            <input type="text" id='slug-text' name="slug" value="" class="form-control" placeholder="Slug Name" required>
+                        <input type="text" id='slug-text' name="slug" value="" class="form-control" placeholder="Slug Name" required>
                     </div>
                     <div class="form-group">
                         <label for="event_date">Date</label>

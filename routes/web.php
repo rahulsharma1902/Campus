@@ -22,6 +22,14 @@ use App\Http\Controllers\Public\CollegePage\collegepage;
 use App\Http\Controllers\Public\CollegePage\joinPages;
 use App\Http\Controllers\Public\GroupsController;
 use App\Http\Controllers\Public\Events\EventController;
+use App\Http\Controllers\Public\projectscontroller;
+use App\Http\Controllers\Public\Home\StaffOfTheWeekController;
+use App\Http\Controllers\Public\Home\StudentOfTheWeekController;
+use App\Http\Controllers\Public\AddFriends\AddFriendsController;
+use App\Http\Controllers\Public\NewsFeed\NewsFeedController;
+use App\Http\Controllers\Public\Chatmsg\ChatMsgController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -102,7 +110,7 @@ Route::get('/studentprofile',[StudentProfile::class, 'index'])->middleware(Stude
 Route::POST('/studentprofile/save',[StudentProfile::class, 'save'])->middleware(StudentsProfile::class);
 Route::post('/studentprofile/upload',[StudentProfile::class, 'profilepicture'])->middleware(StudentsProfile::class);
 Route::get('/studentprofile/getCoursesByCollege',[StudentProfile::class, 'getCoursesByCollege'])->middleware(StudentsProfile::class);
-Route::get('/trycode',[StudentProfile::class, 'trycode']);
+// Route::get('/trycode',[StudentProfile::class, 'trycode']);
 
 
 // Alumni Profile
@@ -128,7 +136,7 @@ Route::post('home/pages/addPagesdata',[Pagescontroller::class,'AddPagedata']);
 // try Route
 
 // Route::get('/home/trycode/', function (){
-//     Artisan::call('make:model sponsership -m');
+//     Artisan::call('make:model projectmessage -m');
 // });
 // Route::get('/home/collegePage',[collegepage::class, 'index']);
 
@@ -167,3 +175,45 @@ Route::get('/sponsorrequests/accepted/{id?}',[EventController::class, 'SponsorRe
 Route::get('/sponsorrequests/denied{id?}',[EventController::class, 'SponsorRequestdenied']);
 
 
+
+//projectgroups
+
+Route::get('/projectgroups/{id?}',[projectscontroller::class,'index']);
+Route::get('projects/{id?}',[projectscontroller::class,'projectgroups']);
+Route::post('addprojects',[projectscontroller::class,'addprojectgroups']);
+Route::post('projectsmessage',[projectscontroller::class,'sendmessage']);
+
+
+
+
+// VOTE ROUTES  
+// ::: Student of the week
+Route::get('/studentoftheweek',[StudentOfTheWeekController::class, 'index']);
+Route::post('/nominatestudent',[StudentOfTheWeekController::class, 'save']);
+Route::get('/getstudentoftheweek',[StudentOfTheWeekController::class, 'getstudentoftheweek']);
+// Route::get('/try',[StudentOfTheWeekController::class, 'trycode']);
+
+// ::: Staff of the week
+Route::get('/staffoftheweek',[StaffOfTheWeekController::class, 'index']);
+Route::post('/nominatestaff',[StaffOfTheWeekController::class, 'save']);
+Route::get('/getstaffoftheweek',[StaffOfTheWeekController::class, 'getstaffoftheweek']);
+// Route::get('/try',[StaffOfTheWeekController::class, 'trycode']);
+
+
+
+/* Route For User Add Friends */
+
+Route::get('/addfriends',[AddFriendsController::class, 'index']);
+Route::get('/userimage',[AddFriendsController::class, 'userimage']);
+Route::get('/followuser',[AddFriendsController::class, 'follow']);
+Route::get('/try',[AddFriendsController::class, 'trycode']);
+
+
+/* Routes for News Feed **/
+Route::get('/newsfeed',[NewsFeedController::class, 'index']);
+Route::post('/uploadpost',[NewsFeedController::class, 'uploadpost']);
+Route::get('/usersdata',[NewsFeedController::class, 'userimage']);
+
+
+/* Routes for chatmsg **/
+Route::get('/chatmsg',[ChatMsgController::class, 'index']);

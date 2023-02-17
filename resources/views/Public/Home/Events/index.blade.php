@@ -11,14 +11,15 @@
             <h4>Events</h4>
             @if($events)
             @foreach($events as $ev)
-                      <div class="col-md-12 col-sm-6 col-lg-12">
+
+                      <div class="col-md-12 col-sm-6 col-lg-12 <?php if(now()->format('Y-m-d')<=$ev[0]->event_date){echo 'd-block';}else{ echo 'd-none';} ?>">
                             <div class="info-box bg-gradient-warning">
                                 <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
                                     <div class="info-box-content">
                                         <div class="row">
                                             <div class="col-lg-4">
                                             <span class="info-box-text">{{$ev[0]->event_name}}</span>
-                                            <span class="info-box-number">{{$ev[0]->event_date}}{{$ev[0]->event_time}}</span>
+                                            <span class="info-box-number">{{$ev[0]->event_date}} ({{$ev[0]->event_time}})</span>
                                             </div>
                                             <div class="col-lg-4">
                                                 <span class="info-box-number">{{$ev[0]->event_venue}}</span>

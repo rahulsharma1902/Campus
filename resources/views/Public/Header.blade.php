@@ -24,6 +24,11 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="/events" class="nav-link">Events</a>
         </li>
+        @if(Auth::user())
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/newsfeed" class="nav-link">News Feed</a>
+        </li>
+        @endif
 
     </ul>
 
@@ -43,6 +48,11 @@
             </a>
         </li>
         @else
+        <li class="nav-item">
+            <a class="nav-link" href="/chatmsg">
+                <i class="fas fa-sms" title="Chat Now"></i>
+            </a>
+        </li>
         <li class="nav-item">
             <a class="nav-link" href="/addfriends">
                 <i class="fas fa-user-plus"></i>

@@ -41,4 +41,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Try Relation Models
+    public function student_profile(){
+        return $this->hasOne(student_profile::class,'user_id', 'id');
+    }
+    public function staff_profile(){
+        return $this->hasOne(student_profile::class,'user_id', 'id');
+    }
+    public function followers(){
+        return $this->hasMany(add_friend::class,'user_id', 'id');
+    }
+
 }

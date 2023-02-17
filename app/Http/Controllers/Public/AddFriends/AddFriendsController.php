@@ -51,29 +51,29 @@ class AddFriendsController extends Controller
             }
          }
     }
-    public function trycode(){
-        $user = DB::table('users')->where('id','=',10)->first();
-        $tablename = null;
-        if($user->user_type == 2){ $tablename = 'student_profiles'; }
-        if($user->user_type == 3){ $tablename = 'staff_profiles'; }
-        if($user->user_type == 4){ $tablename = 'sponsor_profiles'; }
-        if($user->user_type == 5){ $tablename = 'alumni_profiles'; }
-        if (DB::table($tablename)->where('user_id', '=', 10)->exists()) {
-            $img = DB::table($tablename)->where('user_id', 10)->first()->picture;
-            return response()->json([$img]);
-         }else{
-            return response()->json(["167628439519.jpg"]);
-         }
-        // $img = DB::table($tablename)->where('user_id', 10)->first()->picture;
-        // print_r($img);
-        // if($img){
-        //     return response()->json([$img]);
-        // }else{
-        //     $img = "11234.jpeg";
-        //     return response()->json([$img]);
-        // }
-        // return response()->json(['ready to go']);
-    }
+    // public function trycode(){
+    //     $user = DB::table('users')->where('id','=',10)->first();
+    //     $tablename = null;
+    //     if($user->user_type == 2){ $tablename = 'student_profiles'; }
+    //     if($user->user_type == 3){ $tablename = 'staff_profiles'; }
+    //     if($user->user_type == 4){ $tablename = 'sponsor_profiles'; }
+    //     if($user->user_type == 5){ $tablename = 'alumni_profiles'; }
+    //     if (DB::table($tablename)->where('user_id', '=', 10)->exists()) {
+    //         $img = DB::table($tablename)->where('user_id', 10)->first()->picture;
+    //         return response()->json([$img]);
+    //      }else{
+    //         return response()->json(["167628439519.jpg"]);
+    //      }
+    //     // $img = DB::table($tablename)->where('user_id', 10)->first()->picture;
+    //     // print_r($img);
+    //     // if($img){
+    //     //     return response()->json([$img]);
+    //     // }else{
+    //     //     $img = "11234.jpeg";
+    //     //     return response()->json([$img]);
+    //     // }
+    //     // return response()->json(['ready to go']);
+    // }
 
 
     public function follow(Request $request){
@@ -93,6 +93,21 @@ class AddFriendsController extends Controller
             }
         }
         
+    }
+
+    public function trycode(){
+        // $student_profile = User::find(2)->student_profile;
+        // echo '<pre>';
+        //     dd($student_profile);
+        // echo '</pre>';
+        $followers = User::find(2)->followers;
+        // echo '<pre>';
+        //     print_r($followers);
+        // echo '</pre>';
+        foreach($followers as $follower){
+            echo $follower->friend_id;
+            echo '<br>';
+        }
     }
 
 }

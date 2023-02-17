@@ -65,7 +65,10 @@
     @yield('Singlecollege_pages')
     @yield('events')
     @yield('groups')
+    @yield('newsfeed')
     @yield('addfriends')
+    @yield('chatmsg')
+
     <!-- </div> -->
     @include('Public.Footer')
 

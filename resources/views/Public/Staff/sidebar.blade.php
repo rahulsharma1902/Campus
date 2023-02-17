@@ -13,7 +13,9 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="/collegePages" class="nav-link">College Pages</a>
         </li>
-
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/projects" class="nav-link">Project Add</a>
+        </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{url('/home/pages/')}}" class="nav-link">Pages</a>
         </li>
