@@ -10,4 +10,10 @@ class news_feed extends Model
      * @var string
      */
     protected $table = 'news_feeds';
+    public function likes(){
+        return $this->hasMany(like_post::class,'post_id', 'id');
+    }
+    public function comment(){
+        return $this->hasMany(like_post::class,'post_id', 'id');
+    }
 }

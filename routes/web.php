@@ -136,7 +136,7 @@ Route::post('home/pages/addPagesdata',[Pagescontroller::class,'AddPagedata']);
 // try Route
 
 // Route::get('/home/trycode/', function (){
-//     Artisan::call('make:model projectmessage -m');
+//     Artisan::call('make:model chatmessage -m');
 // });
 // Route::get('/home/collegePage',[collegepage::class, 'index']);
 
@@ -213,7 +213,16 @@ Route::get('/try',[AddFriendsController::class, 'trycode']);
 Route::get('/newsfeed',[NewsFeedController::class, 'index']);
 Route::post('/uploadpost',[NewsFeedController::class, 'uploadpost']);
 Route::get('/usersdata',[NewsFeedController::class, 'userimage']);
-
+/* Routes for News Feed Like Post **/
+Route::get('/likepost',[NewsFeedController::class, 'likepost']);
+Route::get('/checklikes',[NewsFeedController::class, 'checklikes']);
+/* Routes for News Feed Comment Post  **/
+Route::get('/commentpost',[NewsFeedController::class, 'commentpost']);
+Route::get('/comments',[NewsFeedController::class, 'comments']);
+Route::get('/countcomments',[NewsFeedController::class, 'countcomments']);
 
 /* Routes for chatmsg **/
-Route::get('/chatmsg',[ChatMsgController::class, 'index']);
+Route::get('/chatmsg/{id?}',[ChatMsgController::class, 'index']);
+Route::post('/sendmsg',[ChatMsgController::class,'sendmessage']);
+
+

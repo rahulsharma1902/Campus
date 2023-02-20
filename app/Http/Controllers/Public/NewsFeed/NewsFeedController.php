@@ -10,6 +10,10 @@ use App\Models\student_profile;
 use App\Models\User;
 use App\Models\add_friend;
 use App\Models\news_feed;
+use App\Models\like_post;
+use App\Models\comment_post;
+
+
 // use Auth;
 use Session;
 use DB;
@@ -21,30 +25,10 @@ class NewsFeedController extends Controller
     public function index(){
         if(DB::table('add_friends')->where('user_id', '=', Auth::user()->id)->exists()){
         $followuser = DB::table('add_friends')->where('user_id',Auth::user()->id)->get(['friend_id'])->toArray();
-        // print_r(count($followuser));  die();
         foreach($followuser as $key=>$value){
-            // print_r($value->friend_id);
             $followPOST[] = DB::table('news_feeds')->where('upload_by',$value->friend_id)->get()->toArray();
-            // echo '<pre>';
-            // print_r($followPOST);
-            // echo '</pre>';
         }
-        // echo '<pre>';
-        // print_r($followPOST);
-        // echo '</pre>';
-        // die();
-        // foreach($followPOST as $key=>$value){
-        //     echo '<pre>';
-        //     print_r(count($value));
-        //     if(count($value) != 0){
-        //         for($i = 0; $i < count($value); $i++){
-        //             print_r($value[$i]->post_title);
-        //         }
-        //     }
-        //     echo '</pre>';
-        // }
-        // die();
-        // $posts = news_feed::orderBy('created_at','desc')->paginate(10);
+
         return view('Public.Home.NewsFeed.index',compact('followPOST'));
     }else{
         $followPOST = array();
@@ -97,4 +81,84 @@ class NewsFeedController extends Controller
             return response()->json([$reponse]);
          }
     }
+
+    public function likepost(Request $request){
+        if($request->post_id){
+            if (DB::table('like_posts')->where('like_by', '=', Auth::user()->id)->where('post_id', '=', $request->post_id)->exists()) {
+                DB::table('like_posts')->where('like_by', '=', Auth::user()->id)->where('post_id', '=', $request->post_id)->delete();
+                return response()->json([false]);
+             }else{
+                $like_post = new like_post();
+                $like_post->like_by = Auth::user()->id;
+                $like_post->post_id = $request->post_id;
+                $like_post->status = 1;
+                $like_post->save(); 
+                return response()->json([true]);
+             }
+        }else{
+            return response()->json(['Enable To Find Post']);
+        }
+    }
+    public function checklikes(Request $request){
+        if($request->post_id){
+            if (DB::table('like_posts')->where('like_by', '=', Auth::user()->id)->where('post_id', '=', $request->post_id)->exists()) {
+                $likes = news_feed::find($request->post_id)->likes->count();
+                return response()->json([$likes,true]);
+             }else{
+                $likes = news_feed::find($request->post_id)->likes->count();
+                return response()->json([$likes,false]);
+             }
+        }
+    }
+    public function countcomments(Request $request){
+        if($request->post_id){
+            if (DB::table('comment_posts')->where('post_id', '=', $request->post_id)->exists()) {
+                $likes = news_feed::find($request->post_id)->comment->count();
+                return response()->json([$comment,true]);
+             }else{
+                $likes = news_feed::find($request->post_id)->comment->count();
+                return response()->json([$comment,false]);
+             }
+        }  
+    }
+
+    public function commentpost(Request $request){
+        if($request->comment){
+            $comment = new comment_post();
+            $comment->comment = $request->comment;
+            $comment->comment_by = Auth::user()->id;
+            $comment->post_id = $request->post_id;
+            $comment->save();
+           
+        return response()->json([true]);
+    }else{
+        return response()->json([false
+    ]);
+    }
+
+}
+public function comments(Request $request){
+    if($request->post_id){
+        if (DB::table('comment_posts')->where('post_id', '=', $request->post_id)->exists()) {
+            $comments = DB::table('comment_posts')->where('post_id', '=', $request->post_id)->get();
+            foreach($comments as $comment){
+                // $comment_id[] =  $comment->comment_by;
+                $user = DB::table('users')->where('id','=',$comment->comment_by)->first();
+                $tablename = null;
+                if($user->user_type == 2){ $tablename = 'student_profile'; }
+                if($user->user_type == 3){ $tablename = 'staff_profile'; }
+                if($user->user_type == 4){ $tablename = 'sponsor_profile'; }
+                if($user->user_type == 5){ $tablename = 'alumni_profile'; }
+
+                $profile = User::find($user->id)->$tablename;
+                $commentsdata[] = array_merge(array($profile),array("comment"=>$comment->comment, "comment_id"=>$comment->id));
+            }
+            return response()->json([$commentsdata ,true]);
+         }else{
+            
+            return response()->json([false]);
+         }
+    }
+        return response()->json(['Comments']);
+}
 }

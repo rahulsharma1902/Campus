@@ -100,7 +100,7 @@ class AddFriendsController extends Controller
         // echo '<pre>';
         //     dd($student_profile);
         // echo '</pre>';
-        $followers = User::find(2)->followers;
+        $followers = User::find(4)->followers;
         // echo '<pre>';
         //     print_r($followers);
         // echo '</pre>';
