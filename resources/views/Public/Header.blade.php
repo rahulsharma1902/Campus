@@ -59,20 +59,29 @@
             </a>
         </li>
         <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">  
+      <li class="nav-item dropdown allnotifications">  
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+          <span class="badge badge-success navbar-badge"></span>
         </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="myspan" style="width: 25rem;">
           <span class="dropdown-item dropdown-header">Notifications</span>
           <div class="dropdown-divider"></div>
           <a href="/eventrequests" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> event messages
+            <i class="fas fa-calendar-star mr-2"></i> event messages
             <span class="float-right text-muted text-sm">3 mins</span>
           </a>
+          <!-- notifications -->
+          <div class="allnotification">
+          <!-- <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            NAME <em> start following you</em>
+            <span class="float-right text-muted text-sm">3 mins</span>
+          </a>
+          </div> -->
+          <!-- End Notifications -->
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+          <a href="/notification" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li>
         <li class="nav-item">
@@ -90,3 +99,33 @@
         <!-- </li> -->
     </ul>
 </nav>
+<script>
+    $(document).ready(function () {
+        $('.allnotifications').on('click', function () {
+            var token = $("meta[name='csrf-token']").attr("content");
+            $.ajax({
+                method: 'get',
+                url: '{{url('/allnotifications')}}',
+                dataType: 'json',
+                data: {
+                    _token: token,
+                },
+                success: function(response) {
+                    $('.allnotification').html("");
+                //    alert(response);
+                //    console.log(response[0][0]->name);
+                //    console.log(response[0][0]->name);
+                   if(response[1] ==true){
+                    for(var i=0;i<response[0].length;i++){
+                    $('.allnotification').append('<div class="markread'+response[0][i][0]['id']+'"><div class="dropdown-divider"></div><span class="myspan dropdown-item">'+response[0][i][1]+'<em> - '+ response[0][i][0]['data'] +'</em><span class="float-right text-muted text-sm">3 mins</span></span></div>')
+    
+                }
+                }else{
+                    $('.allnotification').append('<div class="dropdown-divider"></div> <span>No New Notification</span>');
+                }
+            }
+            });
+        });
+    });
+</script>
+<!-- response[0][i][0]->data  -->

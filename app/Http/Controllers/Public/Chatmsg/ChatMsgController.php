@@ -33,19 +33,31 @@ class ChatMsgController extends Controller
            $userdata = student_profile::where('user_id',$user->id)->join('users','student_profiles.user_id','=','users.id')->select('student_profiles.*','users.username')->first();
         }elseif($user->user_type == 3){
             $userdata = staff_profile::where('user_id',$user->id)->join('users','staff_profiles.user_id','=','users.id')->select('staff_profiles.*','users.username')->first();
+            
         }elseif($user->user_type == 4){
             $userdata = sponsor_profile::where('user_id',$user->id)->join('users','sponsor_profiles.user_id','=','users.id')->select('sponsor_profiles.*','users.username')->first();
         }elseif($user->user_type == 5){
             $userdata = alumni_profile::where('user_id',$user->id)->join('users','alumni_profiles.user_id','=','users.id')->select('alumni_profiles.*','users.username')->first();
         }
+        
+        $message = chatmessage::where([['sender_id',Auth::user()->id],['reciever_id',$userdata->user_id]])->orWhere([['sender_id',$userdata->user_id],['reciever_id',Auth::user()->id]])->orderBy('created_at','desc')->get()->toArray();
+        
     }
         else{
             $userdata = null;
+            $message = null;
         }
+        
+       
+        
         // print_r($userdata);
         // die();
         //list
-        
+        $id = array();
+        $student = array();
+        $staff = array();
+        $sponsor = array();
+        $alummni = array();
         $friends_id = add_friend::where('user_id',Auth::user()->id)->get('friend_id');
         foreach($friends_id as $fid){
           $id[] = $fid['friend_id'];
@@ -72,7 +84,6 @@ class ChatMsgController extends Controller
             }
          $spdata = array();
         foreach($sponsor as $s){
-          
                     if(count($s) != 0){
                      array_push($spdata,$s);
                     }
@@ -86,12 +97,13 @@ class ChatMsgController extends Controller
 
         }
        
+       
        $data = array_merge($sdata,$stdata,$spdata,$adata);
     //    echo '<pre>';
-    //    print_r($data);
+    //    print_r($message);
     //    echo '</pre>';
     //    die();
-        return view('Public.Home.Chatmsg.index',compact('data','userdata'));
+        return view('Public.Home.Chatmsg.index',compact('data','userdata','message'));
 
     }
     public function sendmessage(Request $request){
@@ -107,10 +119,20 @@ class ChatMsgController extends Controller
             $message->save();
             return response()->json('save');
         }else{
+            if($request->message){
+                $message = new chatmessage();
+                $message->message = $request->message;
+                $message->sender_id = $request->sender_id;
+                $message->reciever_id = $request->reciever_id;
+                $message->save();  
+                return response()->json('save');
+            }else{
             return response()->json('not save');
+            }
         }
        
 
     }
-  
+   
+
 }

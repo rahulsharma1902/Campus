@@ -68,6 +68,7 @@
     @yield('newsfeed')
     @yield('addfriends')
     @yield('chatmsg')
+    @yield('notification')
 
     <!-- </div> -->
     @include('Public.Footer')

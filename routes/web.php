@@ -28,7 +28,8 @@ use App\Http\Controllers\Public\Home\StudentOfTheWeekController;
 use App\Http\Controllers\Public\AddFriends\AddFriendsController;
 use App\Http\Controllers\Public\NewsFeed\NewsFeedController;
 use App\Http\Controllers\Public\Chatmsg\ChatMsgController;
-
+use App\Http\Controllers\Public\Notification\NotificationController;
+use App\Http\Controllers\Public\chatmessage;
 
 
 /*
@@ -60,6 +61,7 @@ Route::get('admindash/Colleges', function () {
 Route::get('admindash/Colleges/name',[Collegename::class, 'index'])->middleware(Adminaccess::class);
 Route::POST('admindash/Colleges/addcolleges',[Collegename::class, 'Addcolleges'])->middleware(Adminaccess::class);
 Route::post('admindash/Colleges/delete',[Collegename::class,'Deletecolleges'])->middleware(Adminaccess::class);
+Route::get('admindash/Colleges/collegemember/{id}',[Collegename::class, 'collegemembers'])->middleware(Adminaccess::class);
 
 //courses
 Route::get('admindash/Colleges/Courses',[Collegecourse::class,'index'])->middleware(Adminaccess::class);
@@ -136,7 +138,7 @@ Route::post('home/pages/addPagesdata',[Pagescontroller::class,'AddPagedata']);
 // try Route
 
 // Route::get('/home/trycode/', function (){
-//     Artisan::call('make:model chatmessage -m');
+//     Artisan::call('make:controller Public/chatmessage');
 // });
 // Route::get('/home/collegePage',[collegepage::class, 'index']);
 
@@ -224,5 +226,12 @@ Route::get('/countcomments',[NewsFeedController::class, 'countcomments']);
 /* Routes for chatmsg **/
 Route::get('/chatmsg/{id?}',[ChatMsgController::class, 'index']);
 Route::post('/sendmsg',[ChatMsgController::class,'sendmessage']);
+
+
+/* Notification Route   **/
+Route::get('/notification',[NotificationController::class, 'index']);
+Route::get('/markasread',[NotificationController::class, 'markasread']);
+
+Route::get('/allnotifications',[NotificationController::class, 'allnotifications']);
 
 

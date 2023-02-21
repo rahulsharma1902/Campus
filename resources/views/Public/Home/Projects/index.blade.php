@@ -43,10 +43,10 @@
                         @else
                         <img class="contacts-list-img" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="User Avatar">
                         @endif   
-                    <div class="direct-chat-text" >
+                    <div class="direct-chat-text">
                       {{$m->message}}
                       @if($m->files)
-                      <a href="{{asset('')}}/{{$m->files}}"><i class="far fa-file-pdf" style="font-size:70px;color:green"></i></a>
+                      <a href="{{asset('projectfile')}}/{{$m->files}}"><i class="far fa-file-pdf" style="font-size:150px;color:green"></i></a>
                       @endif
                     </div>
                    

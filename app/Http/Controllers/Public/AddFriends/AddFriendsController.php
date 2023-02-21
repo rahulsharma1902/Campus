@@ -9,6 +9,8 @@ use App\Models\course;
 use App\Models\student_profile;
 use App\Models\User;
 use App\Models\add_friend;
+use App\Models\notification;
+
 // use Auth;
 use Session;
 use DB;
@@ -81,6 +83,13 @@ class AddFriendsController extends Controller
             if (DB::table('add_friends')->where('user_id', '=', Auth::user()->id)->where('friend_id', '=', $request->friend_id)->exists()) {
                 
                 DB::table('add_friends')->where('user_id', '=', Auth::user()->id)->where('friend_id', '=', $request->friend_id)->delete();
+                    // $data = DB::table('news_feeds')->where('id', $request->post_id)->first();
+                    $PostNotification = new notification();
+                    // $PostNotification->post_id = $request->post_id;
+                    $PostNotification->user_id = Auth::user()->id;
+                    $PostNotification->notification_to = $request->friend_id;
+                    $PostNotification->data = 'Unfollow You';
+                    $PostNotification->save();
                 return response()->json(false);
 
              }else{
@@ -89,6 +98,15 @@ class AddFriendsController extends Controller
                     $add_friend->friend_id = $request->friend_id;
                     $add_friend->status = 1;
                     $add_friend->save();
+                    if($add_friend){
+                        // $data = DB::table('news_feeds')->where('id', $request->post_id)->first();
+                        $PostNotification = new notification();
+                        // $PostNotification->post_id = $request->post_id;
+                        $PostNotification->user_id = Auth::user()->id;
+                        $PostNotification->notification_to = $request->friend_id;
+                        $PostNotification->data = 'Start Following You';
+                        $PostNotification->save();
+                    }
                     return response()->json([true]);
             }
         }

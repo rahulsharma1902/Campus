@@ -12,7 +12,8 @@ use App\Models\add_friend;
 use App\Models\news_feed;
 use App\Models\like_post;
 use App\Models\comment_post;
-
+use App\Models\post_notification;
+use App\Models\notification;
 
 // use Auth;
 use Session;
@@ -93,6 +94,14 @@ class NewsFeedController extends Controller
                 $like_post->post_id = $request->post_id;
                 $like_post->status = 1;
                 $like_post->save(); 
+                if($like_post){
+                    $data = DB::table('news_feeds')->where('id', $request->post_id)->first();
+                    $PostNotification = new notification();
+                    $PostNotification->user_id = Auth::user()->id;
+                    $PostNotification->notification_to = $data->upload_by;
+                    $PostNotification->data = 'Like On Your Post';
+                    $PostNotification->save();
+                }
                 return response()->json([true]);
              }
         }else{
@@ -113,15 +122,14 @@ class NewsFeedController extends Controller
     public function countcomments(Request $request){
         if($request->post_id){
             if (DB::table('comment_posts')->where('post_id', '=', $request->post_id)->exists()) {
-                $likes = news_feed::find($request->post_id)->comment->count();
+                $comment = news_feed::find($request->post_id)->comment->count();
                 return response()->json([$comment,true]);
              }else{
-                $likes = news_feed::find($request->post_id)->comment->count();
+                $comment = 0;
                 return response()->json([$comment,false]);
              }
         }  
     }
-
     public function commentpost(Request $request){
         if($request->comment){
             $comment = new comment_post();
@@ -129,7 +137,15 @@ class NewsFeedController extends Controller
             $comment->comment_by = Auth::user()->id;
             $comment->post_id = $request->post_id;
             $comment->save();
-           
+            if($comment){
+                $data = DB::table('news_feeds')->where('id', $request->post_id)->first();
+                $PostNotification = new notification();
+                // $PostNotification->post_id = $request->post_id;
+                $PostNotification->user_id = Auth::user()->id;
+                $PostNotification->notification_to = $data->upload_by;
+                $PostNotification->data = 'Comment On Your Post';
+                $PostNotification->save();
+            }
         return response()->json([true]);
     }else{
         return response()->json([false
@@ -137,6 +153,30 @@ class NewsFeedController extends Controller
     }
 
 }
+
+//     public function commentpost(Request $request){
+//         if($request->comment){
+//             $comment = new comment_post();
+//             $comment->comment = $request->comment;
+//             $comment->comment_by = Auth::user()->id;
+//             $comment->post_id = $request->post_id;
+//             $comment->save();
+//             if($comment){
+//                 $data = DB::table('news_feeds')->where('id', $request->post_id)->first();
+//                 $PostNotification = new post_notification();
+//                 $PostNotification->post_id = $request->post_id;
+//                 $PostNotification->user_id = Auth::user()->id;
+//                 $PostNotification->notification_to = $data->upload_by;
+//                 $PostNotification->Type = 'Comment';
+//                 $PostNotification->save();
+//             }
+//         return response()->json([true]);
+//     }else{
+//         return response()->json([false
+//     ]);
+//     }
+
+// }
 public function comments(Request $request){
     if($request->post_id){
         if (DB::table('comment_posts')->where('post_id', '=', $request->post_id)->exists()) {
