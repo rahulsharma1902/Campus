@@ -13,6 +13,8 @@ class student_profile extends Model
         // return $this->belongsTo('Model', 'foreign_key', 'owner_key'); 
         // return $this->belongsTo('App\Models\college_name','college_id','id');
         return $this->hasMany('App\Models\college_name');
-
+    }
+    public function users(){
+        return $this->belongsTo(User::class);
     }
 }

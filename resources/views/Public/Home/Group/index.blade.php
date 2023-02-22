@@ -101,7 +101,7 @@
 
                     <div class="direct-chat-messages" style="display: flex;flex-direction: column-reverse;">
                         @foreach ($d as $message=>$sendername )
-                        <div class="direct-chat-msg <?php if($sendername['name'] == Auth::user()->real_name){echo 'right';}else{ echo "left";} ?>">
+                        <div class="direct-chat-msg <?php if($sendername['name'] == Auth::user()->real_name){echo 'right';}else{ echo "left";} ?>" >
                             <div class="direct-chat-infos clearfix">
 
                                 <span class="direct-chat-name <?php if($sendername['name'] == Auth::user()->real_name){echo 'float-right';}else{ echo "float-left";} ?>">{{$sendername['name'] ?? ""}}</span>
@@ -110,7 +110,7 @@
 
                             <img class="direct-chat-img" src="{{asset('Profile_images')}}/{{$sendername['image']}}" alt="Message User Image">
 
-                            <div class="direct-chat-text  <?php if($sendername['name'] == Auth::user()->real_name){echo 'bg-danger text-right';}else{ echo "";} ?>">
+                            <div class="direct-chat-text  <?php if($sendername['name'] == Auth::user()->real_name){echo 'bg-danger text-right';}else{ echo "";} ?>" style="<?php if($sendername['name'] == Auth::user()->real_name){echo 'margin-right:50px';} ?>">
                                 {{$message ?? ""}}
                             </div>
                         </div>

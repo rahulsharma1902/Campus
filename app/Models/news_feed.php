@@ -14,6 +14,9 @@ class news_feed extends Model
         return $this->hasMany(like_post::class,'post_id', 'id');
     }
     public function comment(){
-        return $this->hasMany(like_post::class,'post_id', 'id');
+        return $this->hasMany(comment_post::class,'post_id', 'id');
+    }
+    public function users(){
+        return $this->belongsTo(User::class);
     }
 }

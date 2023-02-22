@@ -29,7 +29,10 @@ class NewsFeedController extends Controller
         foreach($followuser as $key=>$value){
             $followPOST[] = DB::table('news_feeds')->where('upload_by',$value->friend_id)->get()->toArray();
         }
-
+    // echo'<pre>';
+    // print_r($followPOST);
+    // echo'</pre>';
+    // die();
         return view('Public.Home.NewsFeed.index',compact('followPOST'));
     }else{
         $followPOST = array();

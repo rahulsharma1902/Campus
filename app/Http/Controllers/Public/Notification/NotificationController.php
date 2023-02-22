@@ -70,4 +70,13 @@ class NotificationController extends Controller
             return response()->json([false]);
         }
     }
+
+    public function markread(Request $request){ 
+        if($request->notification_id){
+            DB::table('notifications')->where('id', '=', $request->notification_id)->update(['read_at' => 1 ]);
+            return response()->json([true]);
+        }else{
+            return response()->json([false]);
+        }
+    }
 }

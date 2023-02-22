@@ -24,6 +24,10 @@
 
   <!-- Bootstrap 4 -->
   <script src="{{ asset('admin')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+ <!-- Link for story -->
+  <link rel="stylesheet" href="{{ asset('coustam.css') }}">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<!-- End Story Links -->
 </head>
 <style>
     .hidden{
@@ -33,28 +37,7 @@
 <body class='sidebar-collapse '>
 
     @include('Public.Header')
-    @if ($errors->any())
-                                <div class="alert alert-danger" id="success-alert">
-                                    @foreach ($errors->all() as $error)
-                                     <button type="button" class="close" data-dismiss="alert">x</button>
-                                    <li><strong>Error!</strong>{{ $error }}</li> 
-                                    @endforeach
-                                </div>
-                            @endif
-                            @if ($message = Session::get('success'))
-                                <div class="alert alert-success" id="success-alert">
-                                     <button type="button" class="close" data-dismiss="alert">x</button>
-                                 <strong>Success!</strong>
-                                    {{$message}}
-                                </div>
-                                @endif
-                                @if ($message = Session::get('error'))
-                                <div class="alert alert-danger" id="danger-alert">
-                                     <button type="button" class="close" data-dismiss="alert">x</button>
-                                 <strong>Error!</strong>
-                                    {{$message}}
-                                </div>
-                                @endif
+    
     @yield('home')
     @yield('register-content')
     @yield('login-content')

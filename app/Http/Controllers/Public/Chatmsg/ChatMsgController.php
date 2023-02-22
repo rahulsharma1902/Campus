@@ -4,16 +4,19 @@ namespace App\Http\Controllers\Public\Chatmsg;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\college_name;
-use App\Models\course;
-use App\Models\student_profile;
-use App\Models\staff_profile;
-use App\Models\sponsor_profile;
-use App\Models\alumni_profile;
-use App\Models\User;
-use App\Models\add_friend;
-use App\Models\chatmessage;
-use App\Models\news_feed;
+use App\Models\{college_name,
+                course,
+                student_profile,
+                staff_profile,
+                sponsor_profile,
+                alumni_profile,
+                User,
+                add_friend,
+                chatmessage,
+                news_feed,
+                notification,
+};
+
 // use Auth;
 use Session;
 use DB;
@@ -117,7 +120,16 @@ class ChatMsgController extends Controller
             $message->sender_id = $request->sender_id;
             $message->reciever_id = $request->reciever_id;
             $message->save();
-            return response()->json('save');
+            if($message){
+                // $data = DB::table('news_feeds')->where('id', $request->post_id)->first();
+                $PostNotification = new notification();
+                // $PostNotification->post_id = $request->post_id;
+                $PostNotification->user_id = Auth::user()->id;
+                $PostNotification->notification_to = $request->reciever_id;
+                $PostNotification->data = 'Send You Image';
+                $PostNotification->save();
+            }
+            return redirect()->back();
         }else{
             if($request->message){
                 $message = new chatmessage();
@@ -125,9 +137,18 @@ class ChatMsgController extends Controller
                 $message->sender_id = $request->sender_id;
                 $message->reciever_id = $request->reciever_id;
                 $message->save();  
-                return response()->json('save');
+                if($message){
+                    // $data = DB::table('news_feeds')->where('id', $request->post_id)->first();
+                    $PostNotification = new notification();
+                    // $PostNotification->post_id = $request->post_id;
+                    $PostNotification->user_id = Auth::user()->id;
+                    $PostNotification->notification_to = $request->reciever_id;
+                    $PostNotification->data = 'Send You Message';
+                    $PostNotification->save();
+                }
+                return redirect()->back();
             }else{
-            return response()->json('not save');
+            return redirect()->back();
             }
         }
        

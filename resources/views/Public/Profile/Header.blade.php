@@ -19,6 +19,28 @@
 </head>
 
 <body class="">
+    @if ($errors->any())
+                                <div class="alert alert-danger" id="success-alert">
+                                    @foreach ($errors->all() as $error)
+                                     <button type="button" class="close" data-dismiss="alert">x</button>
+                                    <li><strong>Error!</strong>{{ $error }}</li> 
+                                    @endforeach
+                                </div>
+                            @endif
+                            @if ($message = Session::get('success'))
+                                <div class="alert alert-success" id="success-alert">
+                                     <button type="button" class="close" data-dismiss="alert">x</button>
+                                 <strong>Success!!!</strong>
+                                    {{$message}}
+                                </div>
+                                @endif
+                                @if ($message = Session::get('error'))
+                                <div class="alert alert-danger" id="danger-alert">
+                                     <button type="button" class="close" data-dismiss="alert">x</button>
+                                 <strong>Error!</strong>
+                                    {{$message}}
+                                </div>
+                                @endif
     @yield('staff_profile')
     </div>
     <!-- jQuery -->

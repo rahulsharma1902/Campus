@@ -44,10 +44,10 @@
                                 <div class="card">
                                     <div class="card-header">
                                     <div class="media">
-                                    <img src="" alt="User Avatar" class="userimg{{$value[0]->upload_by ?? ''}} img-size-50 img-circle mr-3" style="height: 3rem;">
-                                    <div class="d-none"> <button class="useriddbtn" data-id="{{$value[0]->upload_by ?? ''}}">View Image</button></div>
+                                    <img src="" alt="User Avatar" class="userimg{{$value[$i]->upload_by ?? ''}} img-size-50 img-circle mr-3" style="height: 3rem;">
+                                    <div class="d-none"> <button class="useriddbtn" data-id="{{$value[$i]->upload_by ?? ''}}">View Image</button></div>
                                         <div class="media-body">
-                                            <h3 class="dropdown-item-title name{{$value[0]->upload_by ?? ''}}"> </h3>
+                                            <h3 class="dropdown-item-title name{{$value[$i]->upload_by ?? ''}}"> </h3>
                                             <!-- <p class="text-sm">I got your message bro</p> -->
                                         </div>
                                     </div>
@@ -55,16 +55,16 @@
                                         {{$value[$i]->post_title ?? ''}}
                                     </div>
                                     <div class="card-body">
-                                        <img src="{{asset('products_images')}}/{{$value[0]->image ?? ''}}" alt="" style='width: 100%; height: 20rem;'>
+                                        <img src="{{asset('products_images')}}/{{$value[$i]->image ?? ''}}" alt="" style='width: 100%; height: 20rem;'>
                                     </div>
-                                    <div class="d-none"><button class="getlike" data-id="{{$value[0]->id ?? ''}}">getlike</button></div>
-                                    <div class="d-none"><button class="getcomments" data-id="{{$value[0]->id ?? ''}}">getComments</button></div>
+                                    <div class="d-none"><button class="getlike" data-id="{{$value[$i]->id ?? ''}}">getlike</button></div>
+                                    <div class="d-none"><button class="getcomments" data-id="{{$value[$i]->id ?? ''}}">getComments</button></div>
 
-                                    <div class="card-footer"><button type="button" class=" btn btn-default btn-sm likebtn" data-id="{{$value[0]->id ?? ''}}"><i class="like{{$value[0]->id ?? ''}} far fa-thumbs-up"></i> Like</button>
-                                    <button type="button" class=" btn btn-default btn-sm commentbtn" id="commentbtn{{$value[0]->id ?? ''}}" data-id="{{$value[0]->id ?? ''}}" data-toggle="modal" data-target="#CommentModel{{$value[0]->id ?? ''}}"><i class="fas fa-comment"></i> Comment</button>
+                                    <div class="card-footer"><button type="button" class=" btn btn-default btn-sm likebtn" data-id="{{$value[$i]->id ?? ''}}"><i class="like{{$value[$i]->id ?? ''}} far fa-thumbs-up"></i> Like</button>
+                                    <button type="button" class=" btn btn-default btn-sm commentbtn" id="commentbtn{{$value[$i]->id ?? ''}}" data-id="{{$value[$i]->id ?? ''}}" data-toggle="modal" data-target="#CommentModel{{$value[$i]->id ?? ''}}"><i class="fas fa-comment"></i> Comment</button>
                                     <!-- Model For Comment Box -->
                                     <!-- Modal -->
-                                        <div class="modal fade" id="CommentModel{{$value[0]->id ?? ''}}" tabindex="-1" role="dialog" aria-labelledby="CommentModelLabel" aria-hidden="true">
+                                        <div class="modal fade" id="CommentModel{{$value[$i]->id ?? ''}}" tabindex="-1" role="dialog" aria-labelledby="CommentModelLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                             <div class="modal-header">
@@ -75,7 +75,7 @@
                                             </div>
                                             <div class="modal-body" style="overflow: auto; height: 20rem; display: flex; flex-direction: column-reverse;">
                                             <div class="container mt-1">
-                                                <div class="commentsdata{{$value[0]->id ?? ''}}">
+                                                <div class="commentsdata{{$value[$i]->id ?? ''}}">
                                                     <!-- Here alll comment data come by jquery append -->
                                                 </div>
                                             </div>
@@ -87,9 +87,9 @@
                                                             <img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="40">
                                                         </div> -->
                                                         <div class="col-lg-12">
-                                                            <textarea required class="form-control ml-1 shadow-none textarea{{$value[0]->id ?? ''}}"></textarea>
+                                                            <textarea required class="form-control ml-1 shadow-none textarea{{$value[$i]->id ?? ''}}"></textarea>
                                                         </div>
-                                                        <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none postcomment" data-id="{{$value[0]->id ?? ''}}" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+                                                        <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none postcomment" data-id="{{$value[$i]->id ?? ''}}" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
      
                                                 </div>
                                             </div>                                                
@@ -98,10 +98,10 @@
                                         </div>
                                         </div>
                                     <!-- End Comment Box Model -->
-                                    <input type="hidden"  class="float-right text-muted countlikes{{$value[0]->id ?? ''}}" />
-                                    <span class="float-right text-muted mylikes{{$value[0]->id ?? ''}}"> 0 - Likes </span>
-                                    <input type="hidden" class="countcomments{{$value[0]->id ?? ''}}">
-                                    <span class="mr-1 float-right text-muted mycomments{{$value[0]->id ?? ''}}"> 0 - Comments </span>
+                                    <input type="hidden"  class="float-right text-muted countlikes{{$value[$i]->id ?? ''}}" />
+                                    <span class="float-right text-muted mylikes{{$value[$i]->id ?? ''}}"> 0 - Likes </span>
+                                    <input type="hidden" class="countcomments{{$value[$i]->id ?? ''}}">
+                                    <span class="mr-1 float-right text-muted mycomments{{$value[$i]->id ?? ''}}"> 0 - Comments </span>
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +139,7 @@
                 },
                 success: function(response) {
                     // alert(response);
-                    // console.log(response);
+                    console.log(response);
                     // console.log(response[0]['name']);
                     // console.log(response[0]['picture']);
                     // $('.userimg').attr('src', response);

@@ -87,9 +87,11 @@
                         @foreach($message as $m)
                        
                         <div class="direct-chat-msg <?php if($m['sender_id'] == Auth::user()->id){ echo 'right'; }else{ echo 'left'; } ?>" style="<?php if($m['sender_id'] == Auth::user()->id){ echo 'margin-left:500px; margin-right:0px'; }else{ echo 'margin-right:500px; margin-left:0px'; } ?>" >
-                            <div class="direct-chat-text <?php if($m['sender_id'] == Auth::user()->id){ echo 'text-right'; }else{ echo 'text-left'; } ?>" style="margin-left:0px;">
+                        @if($m['message'])    
+                        <div class="direct-chat-text <?php if($m['sender_id'] == Auth::user()->id){ echo 'text-right'; }else{ echo 'text-left'; } ?>" style="margin-left:0px;">
                                 {{$m['message']}}
                             </div>
+                            @endif
                               @if($m['media']) 
                                <div class="mt-1">
                                     <img src="{{asset('products_images')}}/{{$m['media']}}" alt="" class="img-fluid">
@@ -101,7 +103,7 @@
                             <div class="row">
                                
                                 <div class="col-lg-11">
-                                <form id="form" method="post"  enctype= "multipart/form-data" >
+                                <form action="{{url('sendmsg')}}" id="form" method="post"  enctype= "multipart/form-data" >
                                     @csrf
                                     <input type="hidden" name="sender_id" value="<?php echo Auth::user()->id; ?>">
                                     <input type="hidden" name="reciever_id" value="<?php echo $userdata->user_id; ?>">
@@ -122,7 +124,7 @@
     </div>
 </section>
 
-        <script>
+        <!-- <script>
             $(document).ready(function(){
               $('form').on('submit',function(e){
                 e.preventDefault();
@@ -144,8 +146,13 @@
             });
             });
 
-        </script>
+        </script> -->
        
-
+       <script>
+  function autoRefresh() {
+        $(".direct-chat-messages").load(location.href + " .direct-chat-messages");
+        }
+        setInterval('autoRefresh()', 7000);
+</script>
 
 @endsection

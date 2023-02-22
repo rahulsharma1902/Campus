@@ -183,6 +183,7 @@ Route::get('/sponsorrequests/denied{id?}',[EventController::class, 'SponsorReque
 Route::get('/projectgroups/{id?}',[projectscontroller::class,'index']);
 Route::get('projects/{id?}',[projectscontroller::class,'projectgroups']);
 Route::post('addprojects',[projectscontroller::class,'addprojectgroups']);
+Route::post('deleteproject',[projectscontroller::class,'delete']);
 Route::post('projectsmessage',[projectscontroller::class,'sendmessage']);
 
 
@@ -233,5 +234,6 @@ Route::get('/notification',[NotificationController::class, 'index']);
 Route::get('/markasread',[NotificationController::class, 'markasread']);
 
 Route::get('/allnotifications',[NotificationController::class, 'allnotifications']);
+Route::get('/markread',[NotificationController::class, 'markread']);
 
 

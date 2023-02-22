@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Public\AddFriends;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\college_name;
-use App\Models\course;
-use App\Models\student_profile;
-use App\Models\User;
-use App\Models\add_friend;
-use App\Models\notification;
-
+use App\Models\{college_name,
+                course,
+                student_profile,
+                User,
+                add_friend,
+                notification,
+                college_page,
+                joinPage,
+};
 // use Auth;
 use Session;
 use DB;
@@ -43,11 +45,11 @@ class AddFriendsController extends Controller
             }
          }else{
             if (DB::table('add_friends')->where('user_id', '=', Auth::user()->id)->where('friend_id', '=', $request->user_id)->exists()) {
-                $img = "167628439519.jpg";
+                $img = "167704644265.avif";
                 $reponse = array($img,"Unfollow");
                 return response()->json([$reponse]);
                 }else{
-                    $img = "167628439519.jpg";
+                    $img = "167704644265.avif";
                     $reponse = array($img,"Follow");
                     return response()->json([$reponse]);
             }
@@ -114,18 +116,14 @@ class AddFriendsController extends Controller
     }
 
     public function trycode(){
-        // $student_profile = User::find(2)->student_profile;
-        // echo '<pre>';
-        //     dd($student_profile);
-        // echo '</pre>';
-        $followers = User::find(4)->followers;
-        // echo '<pre>';
-        //     print_r($followers);
-        // echo '</pre>';
-        foreach($followers as $follower){
-            echo $follower->friend_id;
-            echo '<br>';
-        }
+        // $data = User::with(['student','staff','sponsor','alumni','posts'])->get()->toArray();
+       
+        // $data = joinPage::with(['collegepage'])->where('page_id', '=', 6)->first();
+        $data = staff_profile::with(['users'])->where('user_id', '=', Auth::user()->id)->first();
+        echo '<pre>';
+        print_r($data->collegepage->moderator_id);
+        // print_r($data->collegepage->page_name);
+        echo '</pre>';
     }
 
 }

@@ -68,7 +68,7 @@
 </div>
 </div>
 <div class="container">
-<table class="table table-bordered">
+<table class="table table-bordered datalist">
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
@@ -80,15 +80,17 @@
                   </thead>
                   <tbody>
                     @if($projects)
+                    <?php $count = 0; ?>
                     @foreach($projects as $p)
                     <tr>
-                      <td>1.</td>
+                      <?php $count = $count+1;  ?>
+                      <td>{{$count}}</td>
                       <td>{{$p->group_name}}</td>
                       <td>
                     <a href="{{url('projects')}}/{{$p->slug}}">Edit</a>
                       </td>
                       <td>
-                    <a href="">Delete</a>
+                    <a href="" data-id ="{{$p->id}}" class="delete">Delete</a>
                       </td>
                     </tr>
                     @endforeach
@@ -112,4 +114,31 @@
     //return str;
   }
 </script>
+<script>
+  $(document).ready(function(){
+    $('.delete').click(function(e){
+      e.preventDefault();
+      id = $(this).attr('data-id');
+   
+     $.ajax({
+      method: 'post',
+			url: '{{url('deleteproject')}}',
+      data: {id:id,_token: '{{csrf_token()}}'},
+			dataType: 'json',
+			success: function(response){
+        Swal.fire({
+							  icon: 'error',
+							  title: "deleted!",
+								text: response  
+              }).then((value) => {
+              window.location.href = '/projects';
+              });
+             
+      }
+     });
+    });
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
+
 @endsection

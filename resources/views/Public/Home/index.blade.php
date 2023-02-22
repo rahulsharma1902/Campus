@@ -1,6 +1,123 @@
 @extends('Public.index')
 @section('home')
+@if(Auth::user())
+<!-- Start story section -->
+<section class="storysection">
+<?php if(Auth::user()->user_type == 1){
+            $profile = 'admin';
+        }elseif(Auth::user()->user_type == 2){
+            $profile = 'student';
+            }elseif(Auth::user()->user_type == 3){
+                $profile = 'staff';
+                } elseif(Auth::user()->user_type == 4){
+                    $profile = 'sponsor';
+                    }elseif(Auth::user()->user_type == 5){
+                        $profile = 'alumni';
+                        }
+?>
+<div class="container my-3">
+    <div class="row">
+        <div class="col-lg-12 layout-spacing">
+            <div class="statbox widget box box-shadow">
+                <div class="widget-header">
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                            <h4 class="pb-0">Stories</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content widget-content-area">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div id="content_1" class="tabcontent story-area"> 
+                                <div class="story-container-1">
+                                    <div class="single-create-story">
+                                        <img src="{{asset('Profile_images')}}/{{$userdata[$profile]['picture']}}" class="single-create-story-bg">
+                                        <div class="create-story-author">
+                                        <label for="file"><i class="addstory fa fa-plus-circle fa-2x text-info"></i>
+                                           <p>Create a story</p></label>
+                                            <input type="file" id ="file" name="video" style="display:none">
+                                        </div> 
+                                    </div>
+                                    <script>
+                                        $(document).ready(function(){
+                                            $('#file').change(function(){
+                                                file = $(this).files[0];
+                                                console.log(file);
+                                    
+                                            })
+                                        });
+                                    </script>
+                                    <div class="single-story">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="single-story-bg">
+                                        <div class="story-author">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png">
+                                            <p>John</p>
+                                        </div>
+                                    </div>
+                                    <div class="single-story">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="single-story-bg">
+                                        <div class="story-author">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar3.png">
+                                            <p>Mike</p>
+                                        </div>
+                                    </div>
+                                    <div class="single-story">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar4.png" class="single-story-bg">
+                                        <div class="story-author">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar4.png">
+                                            <p>Lisa</p>
+                                        </div>
+                                    </div>
+                                    <div class="single-story">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar5.png" class="single-story-bg">
+                                        <div class="story-author">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar5.png">
+                                            <p>William</p>
+                                        </div>
+                                    </div>
+                                    <div class="single-story">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="single-story-bg">
+                                        <div class="story-author">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar6.png">
+                                            <p>Jonthy</p>
+                                        </div>
+                                    </div>
+                                    <div class="single-story">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="single-story-bg">
+                                        <div class="story-author">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png">
+                                            <p>Steve</p>
+                                        </div>
+                                    </div>
+                                    <div class="single-story">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar8.png" class="single-story-bg">
+                                        <div class="story-author">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar8.png">
+                                            <p>Jenni</p>
+                                        </div>
+                                    </div>
+                                    <div class="single-story">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="single-story-bg">
+                                        <div class="story-author">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png">
+                                            <p>Sagarika</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</section>
+<!-- End Story section -->
 <section>
+
 <div class="container-fluid my-5">
     <a href="/studentoftheweek" class="btn btn-success"><i class="fas fa-poll-people"></i>Vote For Student</a>
     <a href="/staffoftheweek" class="btn btn-success"><i class="fas fa-poll-people"></i>Vote For Staff</a>
@@ -9,13 +126,13 @@
             <div class="position-relative">
                 <div class="card">
                     <div class="card-header">
-                        <img src="" alt="studentoftheweek" class="img-fluid studentoftheweek">
+                        <img src="{{asset('Profile_images/167704644265.avif')}}" alt="studentoftheweek" class="img-fluid studentoftheweek">
                         <div class="ribbon-wrapper ribbon-xl">
                             <div class="ribbon bg-success text-sm">Student Of The Week</div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <h3 class="studentname"></h3>
+                        <h3 class="studentname"><em>No Vote Available</em></h3>
                     </div>
                 </div>
             </div>
@@ -24,13 +141,13 @@
             <div class="position-relative">
                 <div class="card">
                     <div class="card-header">
-                        <img src="" alt="studentoftheweek" class="img-fluid staffoftheweek">
+                        <img src="{{asset('Profile_images/167704644265.avif')}}" alt="studentoftheweek" class="img-fluid staffoftheweek">
                         <div class="ribbon-wrapper ribbon-xl">
                             <div class="ribbon bg-success text-sm">Staff Of The Week</div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <h3 class="staffname"></h3>
+                        <h3 class="staffname"><em>No Vote Available</em></h3>
                     </div>
                 </div>
             </div>
@@ -38,6 +155,8 @@
     </div>
 </div>
 </section>
+@endif
+
 <section>
 <div class="container col-lg-6">
     @if($postData)
@@ -102,7 +221,7 @@
                     $('.studentoftheweek').attr('src', src);
                     $(".studentname").html("Name :"+response[0]['name']);
                     }else{
-                        var src = 'https://pbs.twimg.com/profile_images/681337437226938368/31sRHb4V_400x400.jpg';
+                        var src = '{{asset("Profile_images/167704644265.avif")}}';
                         $('.studentoftheweek').attr('src', src);
                         $(".studentname").html("No Vote Available");
                         
@@ -158,7 +277,7 @@
                     $('.staffoftheweek').attr('src', src);
                     $(".staffname").html("Name :"+response[0]['name']);
                     }else{
-                        var src = 'https://pbs.twimg.com/profile_images/681337437226938368/31sRHb4V_400x400.jpg';
+                        var src = '{{asset("Profile_images/167704644265.avif")}}';
                         $('.staffoftheweek').attr('src', src);
                         $(".staffname").html("No Vote Available");
                         
@@ -169,4 +288,5 @@
             });
     });
 </script>
+
 @endsection

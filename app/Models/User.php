@@ -70,4 +70,22 @@ class User extends Authenticatable
     //     }
     // }
 
+    public function student(){
+        return $this->hasOne(student_profile::class);
+    }
+    public function staff(){
+        return $this->hasOne(staff_profile::class);
+    }
+    public function sponsor(){
+        return $this->hasOne(sponsor_profile::class);
+    }
+    public function alumni(){
+        return $this->hasOne(alumni_profile::class);
+    }
+    public function posts(){
+        return $this->hasMany(news_feed::class,'upload_by','id');
+    }
+
+
+
 }

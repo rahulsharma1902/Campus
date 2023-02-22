@@ -13,4 +13,8 @@ class joinPage extends Model
     public function postdata(){
         return $this->hasMany(post::class, 'page_id','college_page_id');
     }
+
+    public function collegepage(){
+        return $this->belongsTo(college_page::class,'page_id','id');
+    }
 }

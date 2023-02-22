@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Public\CollegePage;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\college_name;
-use App\Models\college_page;
-use App\Models\alumni_profile;
-use App\Models\staff_profile;
-use App\Models\User;
-use App\Models\post;
+use App\Models\{
+                    college_name,
+                    college_page,
+                    alumni_profile,
+                    staff_profile,
+                    User,
+                    post,
+                    notification,
+                };
 // use App\Models\joinPage;
 use Session;
 use DB;

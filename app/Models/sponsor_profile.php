@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class sponsor_profile extends Model
 {
     use HasFactory;
+    public function users(){
+        return $this->belongsTo(User::class);
+    }
 }

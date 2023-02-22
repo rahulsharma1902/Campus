@@ -55,7 +55,21 @@ class MainController extends Controller
         // echo '<pre>';
         // print_r($postData);
         // echo'</pre>';
-        return view('Public.Home.index',compact('postData'));
+        $userdata = User::with(['student','staff','sponsor','alumni'])->where('id','=',Auth::user()->id)->first()->toArray();
+            // echo '<pre>';
+        // dd(array_filter($userdata));
+        // $us = array_filter($userdata);
+        // if (array_key_exists("student",$us)){
+        //     echo "student exists!";
+        //     // print_r($userdata->student['name']);
+        //     }elseif(array_key_exists("staff",$us)){
+        //     }else{
+        //         echo 'working failed';
+        //     }
+        // print_r($userdata['student']['name']);
+        // echo '</pre>';
+        // die();
+        return view('Public.Home.index',compact('postData','userdata'));
     }else{
         $postData = null;
         return view('Public.Home.index',compact('postData'));

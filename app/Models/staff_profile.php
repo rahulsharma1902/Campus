@@ -12,4 +12,7 @@ class staff_profile extends Model
     {
         return $this->hasOne(college_name::class, 'college_id', 'id');
     }
+    public function users(){
+        return $this->belongsTo(User::class);
+    }
 }

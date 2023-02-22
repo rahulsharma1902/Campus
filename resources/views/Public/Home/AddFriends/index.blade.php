@@ -6,7 +6,7 @@
         <div class="my-2">
             <div class="card-header userdata <?php if(Auth::user()->id == $user->id){ echo 'd-none'; }else{ echo 'd-block';} ?>">
                 <div class="user-block">
-                    <img class="img-circle userimg{{$user->id ?? ''}}" src="" alt="User Image">
+                    <img class="img-circle userimg{{$user->id ?? ''}}" src="{{asset('Profile_images/167704644265.avif')}}" alt="User Image">
                     <span class="username">{{$user->real_name ?? ""}}</span>
                     <!-- <span class="description">Description not avlaible</span> -->
               <div class="d-none"> <button class="useriddbtn" data-id="{{$user->id ?? ''}}">View Image</button></div>  
@@ -46,6 +46,7 @@
                 },
                 success: function(response) {
                     // alert(response);
+                    console.log(response);
                     // console.log(response[0]);
                     // console.log(response[0][0]);
                     // console.log(response[0][1]);

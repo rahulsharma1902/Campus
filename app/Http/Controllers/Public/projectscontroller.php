@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Auth;
 class projectscontroller extends Controller
 {
     public function index($slug = null){
-        
+       
         // echo $slug;
         if($slug){
             $project = project::where('slug',$slug)->first();
@@ -37,15 +37,27 @@ class projectscontroller extends Controller
             foreach($users as $u){
                 $userdata[] = student_profile::find($u); 
             }
+    $admin = staff_profile::where('user_id',$project->created_by)->first();
     $message = projectmessage::where('project_id',$project->id)->orderBy('created_at','desc')->get();
 
         }else{
             $project = array();
             $userdata = array();
             $message = array();
+            $admin = array();
         }
-        $allprojects = project::get();
-        return view('Public.Home.Projects.index',compact('allprojects','project','userdata','message'));
+        $allprojects = array();
+        $user = Auth::user();
+        // print_r($user->id);
+        if($user){ 
+            $student = student_profile::where('user_id',$user->id)->first();
+            if($student){
+                $allprojects = project::where('users','like',$user->id.'%')->orWhere('users','like','%'.$user->id.'%')->orWhere('users','like','%'.$user->id)->get();
+            }else{
+                $allprojects = project::where('created_by',$user->id)->get();
+            }
+         } 
+        return view('Public.Home.Projects.index',compact('allprojects','project','userdata','message','admin'));
     }
     public function projectgroups($slug = null){
         $projectss = project::where('slug',$slug)->first();
@@ -58,14 +70,18 @@ class projectscontroller extends Controller
     }
     public function addprojectgroups(Request $request){
         // print_r($request->all());
-        $students = implode(",",$request->users);
+   
         // print_r($students);
         if($request->id == null){
     $request->validate([
         'name' => 'required',
         'slug' => 'required|unique:projects',
+        'users' => 'required'
     ]);
-
+    
+     $students = implode(",",$request->users);
+     
+    
     $project = new project();
     $project->group_name = $request->name;
     $project->slug = $request->slug;
@@ -82,6 +98,7 @@ class projectscontroller extends Controller
     
         }
         else{
+            $students = implode(",",$request->users);
             $project = project::find($request->id);
             $project->group_name = $request->name;
             $project->slug = $request->slug;
@@ -99,6 +116,11 @@ class projectscontroller extends Controller
         
 
     }
+        public function delete(Request $request){
+            $project = project::find($request->id)->delete();
+            return response()->json('Deleted Project successfully');
+        }
+
     public function sendmessage(Request $request){
         $user_type = Auth::user()->user_type;
         if($user_type == 2){
@@ -122,7 +144,7 @@ class projectscontroller extends Controller
             $message->project_id = $request->project_id;
             $message->user_id = $request->user_id;
             $message->save();
-            return response()->json('done');
+            return redirect()->back();
         }else{
             if($request->message){
             $message = new projectmessage();
@@ -132,10 +154,10 @@ class projectscontroller extends Controller
             $message->project_id = $request->project_id;
             $message->user_id = $request->user_id;
             $message->save();
-            return response()->json('done');
+            return redirect()->back();
             }
             else{
-                return response()->json('empty');
+                return redirect()->back();
             }
         }
         

@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Public\CollegePage;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\college_name;
-use App\Models\college_page;
-use App\Models\alumni_profile;
-use App\Models\User;
-use App\Models\joinPage;
+use App\Models\{college_name,
+                college_page,
+                alumni_profile,
+                User,
+                joinPage,
+                notification,
+};
 use Session;
 use DB;
 use Illuminate\Validation\Rule;
@@ -33,6 +35,15 @@ class joinPages extends Controller
             $joinPage->user_id = Auth::user()->id;
             $joinPage->status = 1;
             $joinPage->save();
+            if($joinPage){
+                $data = joinPage::with(['collegepage'])->where('page_id', '=', $request['page_id'])->first();
+                $PostNotification = new notification();
+                $PostNotification->user_id = Auth::user()->id;
+                $userid = DB::table('staff_profiles')->where('id', '=', $data->collegepage->moderator_id)->first();
+                $PostNotification->notification_to = $userid->user_id;
+                $PostNotification->data = 'Join Your College Page';
+                $PostNotification->save();
+            }
             return response()->json('Page Join successfully');
 
         }else{
@@ -40,6 +51,13 @@ class joinPages extends Controller
             ->where('user_id',Auth::user()->id)
             ->where('page_id',$request['page_id'])
             ->delete();
+                $data = joinPage::with(['collegepage'])->where('page_id', '=', $request['page_id'])->first();
+                $PostNotification = new notification();
+                $PostNotification->user_id = Auth::user()->id;
+                $userid = DB::table('staff_profiles')->where('id', '=', $data->collegepage->moderator_id)->first();
+                $PostNotification->notification_to = $userid->user_id;
+                $PostNotification->data = 'Unfollow Your College Page';
+                $PostNotification->save();
             return response()->json('You Unfollow this page');
         }
     }else{
