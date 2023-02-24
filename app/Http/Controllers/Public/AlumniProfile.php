@@ -27,7 +27,7 @@ class AlumniProfile extends Controller
                 $alumni_profile->social_links = $request['social_links'];
                 $alumni_profile->user_id = Auth::user()->id;
                 $alumni_profile->save();
-                return redirect('/alumniprofile')->with('success', 'Profile created successfully');
+                return redirect()->back()->with('success', 'Profile created successfully');
             }else{
                 $alumni_profile = alumni_profile::find($request->alumni_id);
                     if($alumni_profile){
@@ -38,9 +38,9 @@ class AlumniProfile extends Controller
                         $alumni_profile->user_id = Auth::user()->id;
                         $alumni_profile->save();
                         // return redirect()->back();
-                        return redirect('/alumniprofile')->with('success', 'Profile updated successfully');
+                        return redirect()->back()->with('success', 'Profile updated successfully');
                     }
-                        return redirect('/alumniprofile')->with('error', 'Nothing to Update');
+                        return redirect()->back()->with('error', 'Nothing to Update');
             }
       }
       public function profilepicture(Request $request){
@@ -53,13 +53,13 @@ class AlumniProfile extends Controller
                   $alumni_profile = alumni_profile::find($request->alumni_id);
                   $alumni_profile->picture = $name;
                   $alumni_profile->save();
-                  return redirect('/alumniprofile')->with('success','Profile picture uploaded successfully');
+                  return redirect()->back()->with('success','Profile picture uploaded successfully');
                 }
                 else{
-                  return redirect('/alumniprofile')->with('error','Select a file to upload profile picture');
+                  return redirect()->back()->with('error','Select a file to upload profile picture');
                 }
             }else{
-                return redirect('/alumniprofile')->with('error', 'Complete Your Student profile Settings');
+                return redirect()->back()->with('error', 'Complete Your Student profile Settings');
             }
               }
     }

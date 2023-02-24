@@ -31,13 +31,13 @@ if(!empty($request->student_id)){
           $student_profile = student_profile::find($request->student_id);
           $student_profile->picture = $name;
           $student_profile->save();
-          return redirect('/studentprofile')->with('success','Profile picture uploaded successfully');
+          return redirect()->back()->with('success','Profile picture uploaded successfully');
         }
         else{
-          return redirect('/studentprofile')->with('error','Select a file to upload profile picture');
+          return redirect()->back()->with('error','Select a file to upload profile picture');
         }
     }else{
-        return redirect('/studentprofile')->with('error', 'Complete Your Student profile Settings');
+        return redirect()->back()->with('error', 'Complete Your Student profile Settings');
     }
       }
       public function getCoursesByCollege(Request $request){
@@ -64,7 +64,7 @@ if(!empty($request->student_id)){
                 $student_profile->user_id = Auth::user()->id;
                 $student_profile->save();
                 // return redirect()->back();
-                return redirect('/studentprofile')->with('success', 'Profile created successfully');
+                return redirect()->back()->with('success', 'Profile created successfully');
             }else{
                 $student_profile = student_profile::find($request->student_id);
                     if($student_profile){
@@ -79,7 +79,7 @@ if(!empty($request->student_id)){
                         $student_profile->user_id = Auth::user()->id;
                         $student_profile->save();
                         // return redirect()->back();
-                        return redirect('/studentprofile')->with('success', 'Profile updated successfully');
+                        return redirect()->back()->with('success', 'Profile updated successfully');
                     }
 
             }

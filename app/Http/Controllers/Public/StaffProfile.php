@@ -32,14 +32,14 @@ class StaffProfile extends Controller
                 $staff_profile = Staff_profile::where('user_id', '=',  $request->user_id)->first(); 
                 $staff_profile->picture = $name;
                 $staff_profile->save();
-                return redirect('Staff/profile/')->with('success','image uploaded');
+                return redirect()->back()->with('success','image uploaded');
             }
             else{
                 $staff_profile = new staff_profile();
                 $staff_profile->picture = $name;
                 $staff_profile->user_id = $request->user_id;
                 $staff_profile->save();
-                return redirect('Staff/profile/')->with('success','image uploaded');
+                return redirect()->back()->with('success','image uploaded');
             }
           }
      }
@@ -56,7 +56,7 @@ class StaffProfile extends Controller
             $staff_profile->social_links = $request->social_links;
             $staff_profile->user_id = $request->id;
             $staff_profile->save();
-            return redirect('Staff/profile')->with('success','successfully updated profile');
+            return redirect()->back()->with('success','successfully updated profile');
         }
         else{
             $staff_profile = new staff_profile();
@@ -69,7 +69,7 @@ class StaffProfile extends Controller
             $staff_profile->social_links = $request->social_links;
             $staff_profile->user_id = $request->id;
             $staff_profile->save();
-            return redirect('Staff/profile')->with('success','successfully updated profile');
+            return redirect()->back()->with('success','successfully updated profile');
         }
 
      }

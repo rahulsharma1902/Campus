@@ -3,30 +3,6 @@
 @section('alumni_profile')
 <div class="content-wrapper mt-4">
     <section class="content">
-        @if ($errors->any())
-        @foreach ($errors->all() as $error)
-        <div class="alert alert-danger mt-2" id="danger-alert">
-
-            <button type="button" class="close" data-dismiss="alert">x</button>
-            <strong>Error!</strong>{{ $error }}
-
-        </div>
-        @endforeach
-        @endif
-        @if ($message = Session::get('success'))
-        <div class="dismiss alert alert-success" id="success-alert">
-            <button type="button" class="close" data-dismiss="alert">x</button>
-            <strong>Success!</strong>
-            {{$message}}
-        </div>
-        @endif
-        @if ($message = Session::get('error'))
-        <div class="dismiss alert alert-danger" id="danger-alert">
-            <button type="button" class="close" data-dismiss="alert">x</button>
-            <strong>!</strong>
-            {{$message}}
-        </div>
-        @endif
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3">
@@ -39,13 +15,11 @@
                                     enctype="multipart/form-data">
                                     @csrf
                                     <label for="profilepic">
-                                        <img class="profile-user-img img-fluid img-circle" src=" @if (!empty($a_p->picture))
-                                                {{ url('/Profile_images') }}/{{$a_p->picture}}  
-                                                @else
-                                                http://bootdey.com/img/Content/avatar/avatar1.png   
-                                                @endif  
-                                                ">
-                                    </label>
+                                    <img class="profile-user-img img-fluid img-circle" src="@if (!empty($s_p->picture)){{asset('/Profile_images')}}/{{$s_p->picture}}  
+                                            @else
+                                            http://bootdey.com/img/Content/avatar/avatar1.png   
+                                            @endif  
+                                            ">                                    </label>
                                     <input type="file" id="profilepic" name="profilepic" style="display:none;">
 
                                     <input type="hidden" name='alumni_id' value='{{$a_p->id ?? ""}}'>

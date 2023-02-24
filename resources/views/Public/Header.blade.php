@@ -1,10 +1,34 @@
-<nav class="main-header navbar navbar-expand navbar-dark ">
+<style>
+    .navbar-brand img {
+  width: 80px;
+}
+.navbar-nav {
+  align-items: center;
+}
+.navbar .navbar-nav .nav-link {
+  color: #fff;
+  font-size: 1.1em;
+  padding: 0.5em 1em;
+}
+@media screen and (min-width: 768px) {
+  .navbar-brand img {
+    width: 100px;
+  }
+  .navbar-brand {
+    margin-right: 0;
+    padding: 0 1em;
+  }
+}
+
+</style>
+<nav class="main-header navbar navbar-expand "style="background:black;">
 <!-- <nav class="main-header navbar navbar-expand navbar-dark " style='position:fixed; width: 100%;'> -->
     <!-- Left navbar links -->
-    <ul class="navbar-nav">
+    <ul class="navbar-nav mr-auto">
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
+        @if(Auth::user())
         <li class="nav-item d-none d-sm-inline-block">
             <a href="/home" class="nav-link">Home</a>
         </li>
@@ -14,6 +38,15 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="/collegePages" class="nav-link">College Pages</a>
         </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/events" class="nav-link">Events</a>
+        </li>
+        @else
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/" class="nav-link">Home</a>
+        </li>
+        @endif
+
         @if(Auth::user())
         @if(Auth::user()->user_type == 2 OR Auth::user()->user_type == 3 OR Auth::user()->user_type == 5)
         <li class="nav-item d-none d-sm-inline-block">
@@ -21,15 +54,18 @@
         </li>
         @endif
         @endif
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="/events" class="nav-link">Events</a>
-        </li>
+       
         @if(Auth::user())
         <li class="nav-item d-none d-sm-inline-block">
             <a href="/newsfeed" class="nav-link">News Feed</a>
         </li>
         @endif
-
+        </ul>
+    <ul class="navbar-nav mx-auto">
+        <a class="navbar-brand d-none d-md-block" href="#" title="campus-logo">
+          <img src="{{asset('Profile_images')}}/167714088394.jpg" alt="">
+        </a>
+      
     </ul>
 
     <!-- Right navbar links -->
@@ -38,13 +74,13 @@
 
         @if (Auth::guest())
         <li class="nav-item">
-            <a class="nav-link" href="/register">
-                Register
+            <a class="nav-link" href="/register" title="Register">
+                <i class="fas fa-registered"></i>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/login">
-                Login
+            <a class="nav-link" href="/login" title="Login">
+                <i class="fas fa-sign-in-alt"></i>
             </a>
         </li>
         @else
@@ -64,55 +100,24 @@
             <div class="notifications" id="box" style="height: 0px; opacity: 0;">
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right show" id="myspan" style="width: 26rem !important; max-width: 30rem !important;">
                         <span class="dropdown-item dropdown-header">Notifications</span>
-                        <div class="dropdown-divider"></div>
-                        <a href="/eventrequests" class="dropdown-item">
-                            <i class="fas fa-calendar-star mr-2"></i> event messages
-                            <span class="float-right text-muted text-sm">3 mins</span>
-                        </a>
+                        <div class="d-none">
+                            <div class="dropdown-divider"></div>
+                            <a href="/eventrequests" class="dropdown-item">
+                                <i class="fas fa-calendar-star mr-2"></i> event messages
+                                <span class="float-right text-muted text-sm">3 mins</span>
+                            </a>
                         <div class="dropdown-divider">
                             <span><em>No New Notifications</em></span>
+                        </div>
                         </div>
                         <div class="allnotification"></div>
 
                 </div>
             </div>
         </li>
-    <!-- NEW NOTIFICATION -->
-
-
-
-        <!-- Notifications Dropdown Menu -->
-      <!-- <li class="nav-item dropdown allnotifications">  
-        <a class="nav-link" data-toggle="dropdown" href="#"  id="notify">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-success navbar-badge"></span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="myspan" style="width: 26rem !important; max-width: 30rem !important;">
-          <span class="dropdown-item dropdown-header">Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="/eventrequests" class="dropdown-item">
-            <i class="fas fa-calendar-star mr-2"></i> event messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a> -->
-          <!-- notifications -->
-          <!-- <div class="allnotification"> -->
-          <!-- <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            NAME <em> start following you</em>
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          </div> -->
-          <!-- End Notifications -->
-          <!-- <div class="dropdown-divider"></div>
-          <a href="/notification" class="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
-      </li> -->
-
-
-
 
         <li class="nav-item">
-            <a class="nav-link" href="/profile">
+            <a class="nav-link" href="/my-account">
                 <i class="fas fa-users-cog"></i>
             </a>
         </li>

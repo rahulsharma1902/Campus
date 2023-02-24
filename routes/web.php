@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Public\MainController;
 use App\Http\Controllers\auth\coustamAuthController;
@@ -29,7 +28,9 @@ use App\Http\Controllers\Public\AddFriends\AddFriendsController;
 use App\Http\Controllers\Public\NewsFeed\NewsFeedController;
 use App\Http\Controllers\Public\Chatmsg\ChatMsgController;
 use App\Http\Controllers\Public\Notification\NotificationController;
+use App\Http\Controllers\Public\Stories\StoriesController;
 use App\Http\Controllers\Public\chatmessage;
+
 
 
 /*
@@ -106,9 +107,9 @@ Route::get('/newmembers', [GroupsController::class, 'newmembers']);
 
 
 // Profile dashboard
-Route::get('/profile',[Profile::class, 'index']);
+Route::get('/my-account',[Profile::class, 'index']);
 //Student Profile 
-Route::get('/studentprofile',[StudentProfile::class, 'index'])->middleware(StudentsProfile::class);
+Route::get('/my-account/studentprofile',[StudentProfile::class, 'index'])->middleware(StudentsProfile::class);
 Route::POST('/studentprofile/save',[StudentProfile::class, 'save'])->middleware(StudentsProfile::class);
 Route::post('/studentprofile/upload',[StudentProfile::class, 'profilepicture'])->middleware(StudentsProfile::class);
 Route::get('/studentprofile/getCoursesByCollege',[StudentProfile::class, 'getCoursesByCollege'])->middleware(StudentsProfile::class);
@@ -116,18 +117,18 @@ Route::get('/studentprofile/getCoursesByCollege',[StudentProfile::class, 'getCou
 
 
 // Alumni Profile
-Route::get('/alumniprofile',[AlumniProfile::class, 'index']);
+Route::get('/my-account/alumniprofile',[AlumniProfile::class, 'index']);
 Route::POST('/alumniprofile/save',[AlumniProfile::class, 'save']);
 Route::post('/alumniprofile/upload',[AlumniProfile::class, 'profilepicture']);
 
 
 //Sponsorprofile
-Route::get('/Sponsor/profile',[SponsorProfile::class,'index']);
+Route::get('/my-account/sponsorprofile',[SponsorProfile::class,'index']);
 Route::post('/Sponsor/profile/upload',[SponsorProfile::class,'profilephoto']);
 Route::post('/Sponsor/profile/Sponsordata',[SponsorProfile::class,'AddSponsorData']);
 
 //Staffprofile
-Route::get('/Staff/profile',[StaffProfile::class,'index']);
+Route::get('/my-account/staffprofile',[StaffProfile::class,'index']);
 Route::post('/Staff/profile/upload',[StaffProfile::class,'profilephoto']);
 Route::post('/Staff/profile/insert',[StaffProfile::class,'AddStaffData']);
 Route::post('/Staff/profile/collegedata',[StaffProfile::class,'getcollegedata']);
@@ -138,7 +139,7 @@ Route::post('home/pages/addPagesdata',[Pagescontroller::class,'AddPagedata']);
 // try Route
 
 // Route::get('/home/trycode/', function (){
-//     Artisan::call('make:controller Public/chatmessage');
+//     Artisan::call('make:model login_detail -m');
 // });
 // Route::get('/home/collegePage',[collegepage::class, 'index']);
 
@@ -237,3 +238,10 @@ Route::get('/allnotifications',[NotificationController::class, 'allnotifications
 Route::get('/markread',[NotificationController::class, 'markread']);
 
 
+// Route For Upload Stories
+Route::post('/uploadstory',[StoriesController::class, 'index']);
+
+
+
+//tryyashwant
+Route::any('/trycode',[projectscontroller::class,'trycode']);

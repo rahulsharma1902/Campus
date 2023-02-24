@@ -1,15 +1,24 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => 'v9.5.1',
-        'version' => '9.5.1.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '8370b486bd57b2c05508e2b23651320d37a023c7',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'anhskohbo/no-captcha' => array(
+            'pretty_version' => '3.5.0',
+            'version' => '3.5.0.0',
+            'reference' => '81302b9ddfb4ee5904b66f24bf3e11ea74fa0b92',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../anhskohbo/no-captcha',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'brick/math' => array(
             'pretty_version' => '0.10.2',
             'version' => '0.10.2.0',
@@ -365,9 +374,9 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'v9.5.1',
-            'version' => '9.5.1.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '8370b486bd57b2c05508e2b23651320d37a023c7',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -709,8 +718,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0|3.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0|3.0',
             ),
         ),
         'psr/simple-cache' => array(

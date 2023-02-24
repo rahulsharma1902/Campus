@@ -25,10 +25,10 @@ class SponsorProfile extends Controller
          $user = DB::table('sponsor_profiles')->where('user_id', $request->user_id)->first();
          if(!empty($user)){
             // echo 'done';
-             $sponsor_profiles = sponsor_profiles::where('user_id', '=',  $request->user_id)->first(); 
+             $sponsor_profiles = sponsor_profile::where('user_id', '=',  $request->user_id)->first(); 
              $sponsor_profiles->picture = $name;
              $sponsor_profiles->save();
-             return redirect('/Sponsor/profile')->with('success','image uploaded');
+             return redirect()->back()->with('success','image uploaded');
          }
          else{
             // echo 'not done';
@@ -36,7 +36,7 @@ class SponsorProfile extends Controller
              $sponsor_profiles->picture = $name;
              $sponsor_profiles->user_id = $request->user_id;
              $sponsor_profiles->save();
-             return redirect('/Sponsor/profile')->with('success','image uploaded');
+             return redirect()->back()->with('success','image uploaded');
          }
        }
    }
@@ -52,7 +52,7 @@ class SponsorProfile extends Controller
           $staff_profile->type_of_support = $request->type_of_support;
           $staff_profile->user_id = $request->id;
           $staff_profile->save();
-          return redirect('/Sponsor/profile')->with('success','successfully updated profile');
+          return redirect()->back()->with('success','successfully updated profile');
       }
       else{
           $staff_profile = new sponsor_profile();
@@ -62,7 +62,7 @@ class SponsorProfile extends Controller
           $staff_profile->type_of_support = $request->type_of_support;
           $staff_profile->user_id = $request->id;
           $staff_profile->save();
-          return redirect('/Sponsor/profile')->with('success','successfully updated profile');
+          return redirect()->back()->with('success','successfully updated profile');
       }
    }
 }

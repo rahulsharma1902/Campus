@@ -12,6 +12,7 @@ use App\Models\{college_name,
                 notification,
                 college_page,
                 joinPage,
+                storie,
 };
 // use Auth;
 use Session;
@@ -116,13 +117,25 @@ class AddFriendsController extends Controller
     }
 
     public function trycode(){
-        // $data = User::with(['student','staff','sponsor','alumni','posts'])->get()->toArray();
-       
+        // $data = User::with(['student','staff','sponsor','alumni','posts.comment','posts'=>function($q){
+        //     $q->withCount('likes');
+        // }
+        // ])    
+        // ->get()
+        // ->toArray();
+        $data = User::with(['student','staff','sponsor','alumni','posts.comment','posts'=>function($q){
+            $q->withCount('likes');
+        },'friends.stories','friends.users','friends.student','friends.staff','friends.sponsor','friends.alumni'])
+        ->where('id', '=', Auth::user()->id)   
+        ->get()
+        ->toArray();
+    //    ->withCount(['posts'])
         // $data = joinPage::with(['collegepage'])->where('page_id', '=', 6)->first();
-        $data = staff_profile::with(['users'])->where('user_id', '=', Auth::user()->id)->first();
+        // $data = staff_profile::with(['users'])->where('user_id', '=', Auth::user()->id)->first();
         echo '<pre>';
-        print_r($data->collegepage->moderator_id);
+        // print_r($data->collegepage->moderator_id);
         // print_r($data->collegepage->page_name);
+        print_r($data);
         echo '</pre>';
     }
 

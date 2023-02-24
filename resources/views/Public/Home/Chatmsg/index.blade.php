@@ -152,7 +152,7 @@
   function autoRefresh() {
         $(".direct-chat-messages").load(location.href + " .direct-chat-messages");
         }
-        setInterval('autoRefresh()', 7000);
+        setInterval('autoRefresh()', 2000);
 </script>
 
 @endsection

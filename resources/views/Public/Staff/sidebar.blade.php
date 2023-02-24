@@ -4,20 +4,35 @@
         <?php $user = Auth()->user();
 
       ?>
-        <li class="nav-item d-none d-sm-inline-block">
-            <?php if($user !== null){ ?>
-            <a href="@if($user->user_type == 3){{url('/Staff/profile')}} @elseif($user->user_type == 4){{url('/Sponsor/profile')}}@endif"
-                class="nav-link">Profile</a>
-            <?php } ?>
+       <li class="nav-item d-none d-sm-inline-block">
+            <a href="/" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/collegePages" class="nav-link">College Pages</a>
+            <?php if($user !== null){ ?>
+            <a href="@if($user->user_type == 3){{url('/my-account/staffprofile')}} @elseif($user->user_type == 4){{url('/my-account/sponsorprofile')}}@endif"
+                class="nav-link">Profile</a>
+            <?php } ?>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="/projects" class="nav-link">Project Add</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{url('/home/pages/')}}" class="nav-link">Pages</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Profession</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Mailbox/emailing</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Calendar</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Political Position</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Review</a>
         </li>
     </ul>
 

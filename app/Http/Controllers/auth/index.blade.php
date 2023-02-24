@@ -1,14 +1,5 @@
 @extends('Public.index')
 @section('login-content')
-<div class="container my-3">
-@if ($message = Session::get('warning'))
-        <div class="text-center dismiss alert alert-warning" id="danger-alert">
-            <button type="button" class="close" data-dismiss="alert">x</button>
-              <!-- <strong></strong> -->
-            <span class="text-center"><a href=""><em>{{$message}}</em></a></span>
-        </div>
-        @endif
-</div>
 <div class="container col-lg-8">
 <div class="col-md-12">
             <div class="card card-success mt-4">
@@ -20,7 +11,7 @@
                     @csrf
     
                         <div class="form-group">
-                            <label for="user">Username / E-Mail-Address</label>
+                            <label for="user">User Name / E-Mail-Address</label>
                             <input type="text" class="form-control"name='user' id="user" placeholder="Enter username or email" required>
                         </div>
                         <div class="form-group">
@@ -42,7 +33,7 @@
                             <button type="submit" class="btn btn-success btn-block">Login</button>
                         </div>
                         <div class="text-center">
-                          <p>Don't have an account <em><a href="/register">Register</a></em></p>
+                          <p>Don't have an account <a href="/register">register</a></p>
                         </div>
                 </form>
               </div>

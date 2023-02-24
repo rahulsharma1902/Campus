@@ -16,7 +16,8 @@ class DashboardController extends Controller
         return view('Admin.index');
     }
     public function Users(){
-        $users = User::where('user_type','!=','1')->get();
+        $users = User::where('user_type','!=','1')->where('status','=','1')->get();
+        
         return view('Admin.Dashboard.Users')->with('user',$users);
     }
     public function update(Request $request){

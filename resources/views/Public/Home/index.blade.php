@@ -32,7 +32,7 @@
                             <div id="content_1" class="tabcontent story-area"> 
                                 <div class="story-container-1">
                                     <div class="single-create-story">
-                                        <img src="{{asset('Profile_images')}}/{{$userdata[$profile]['picture']}}" class="single-create-story-bg">
+                                        <img src="{{asset('Profile_images')}}/{{$userdata[0][$profile]['picture']}}" class="single-create-story-bg">
                                         <div class="create-story-author">
                                         <label for="file"><i class="addstory fa fa-plus-circle fa-2x text-info"></i>
                                            <p>Create a story</p></label>
@@ -42,68 +42,38 @@
                                     <script>
                                         $(document).ready(function(){
                                             $('#file').change(function(){
-                                                file = $(this).files[0];
-                                                console.log(file);
-                                    
-                                            })
+                                               
+                                                file = $(this)[0].files[0];
+                                                formdata = new FormData();
+                                                token ='{{csrf_token()}}';
+                                                // console.log(token);
+                                                formdata.append('file',file);
+                                                formdata.append('_token',token);
+                                                formdata.append('id','{{Auth::user()->id}}');
+                                                // console.log(formdata);
+                                                    $.ajax({
+			                                        method: 'post',
+	                                        		url: '{{url('uploadstory')}}',
+                                                    data: formdata,
+	                                        		dataType: 'json',
+                                                    contentType: false,
+                                                    processData: false,
+			                                        success: function(response)
+			                                        {
+                                                        Swal.fire({
+							                        icon: 'success',
+							                        title: "Uploading successfully", 
+                                                 }).then((value) => {
+              window.location.href = 'https://campus.sagmetic.com/home';
+              });
+                                                    }
+                                                        });
+                                                
+                                                
+                                            });
                                         });
                                     </script>
-                                    <div class="single-story">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="single-story-bg">
-                                        <div class="story-author">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png">
-                                            <p>John</p>
-                                        </div>
-                                    </div>
-                                    <div class="single-story">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="single-story-bg">
-                                        <div class="story-author">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar3.png">
-                                            <p>Mike</p>
-                                        </div>
-                                    </div>
-                                    <div class="single-story">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar4.png" class="single-story-bg">
-                                        <div class="story-author">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar4.png">
-                                            <p>Lisa</p>
-                                        </div>
-                                    </div>
-                                    <div class="single-story">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar5.png" class="single-story-bg">
-                                        <div class="story-author">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar5.png">
-                                            <p>William</p>
-                                        </div>
-                                    </div>
-                                    <div class="single-story">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="single-story-bg">
-                                        <div class="story-author">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar6.png">
-                                            <p>Jonthy</p>
-                                        </div>
-                                    </div>
-                                    <div class="single-story">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="single-story-bg">
-                                        <div class="story-author">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png">
-                                            <p>Steve</p>
-                                        </div>
-                                    </div>
-                                    <div class="single-story">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar8.png" class="single-story-bg">
-                                        <div class="story-author">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar8.png">
-                                            <p>Jenni</p>
-                                        </div>
-                                    </div>
-                                    <div class="single-story">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="single-story-bg">
-                                        <div class="story-author">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png">
-                                            <p>Sagarika</p>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -288,5 +258,5 @@
             });
     });
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 @endsection

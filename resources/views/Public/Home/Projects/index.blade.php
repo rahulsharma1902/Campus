@@ -1,10 +1,10 @@
 @extends('Public.index')
 @section('project_pages')
-<pre>
+<!-- <pre> -->
   <?php 
   // print_r($admin);
   ?>
-</pre>
+<!-- </pre> -->
 
 <div class="container-fluid">
     <div class="row">

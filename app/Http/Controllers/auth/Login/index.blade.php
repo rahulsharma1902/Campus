@@ -42,7 +42,7 @@
                             <button type="submit" class="btn btn-success btn-block">Login</button>
                         </div>
                         <div class="text-center">
-                          <p>Don't have an account <em><a href="/register">Register</a></em></p>
+                          <p>Don't have an account <em><a href="/register">register</a></em></p>
                         </div>
                 </form>
               </div>

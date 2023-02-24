@@ -15,20 +15,24 @@ class Profile extends Controller
 {
     //
     public function index(){
+      if(Auth::user()){
       if(Auth::user()->user_type == 2){
-        return redirect('/studentprofile');
+        return redirect('/my-account/studentprofile');
       }if(Auth::user()->user_type == 3){
-        return redirect('/Staff/profile');
+        return redirect('/my-account/staffprofile');
       }if(Auth::user()->user_type == 4){
-        return redirect('/Sponsor/profile');
+        return redirect('/my-account/sponsorprofile');
       }if(Auth::user()->user_type == 5){
-        return redirect('/alumniprofile');
+        return redirect('/my-account/alumniprofile');
       }if(Auth::user()->user_type == 1){
         return redirect('/admindash/dashboard');
       }else{
           return redirect('/');
       }
+    }else{
+      return abort(404);
     }
+  }
 
   
 }

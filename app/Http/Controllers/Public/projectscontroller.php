@@ -25,6 +25,8 @@ use Session;
 use DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
 class projectscontroller extends Controller
 {
     public function index($slug = null){
@@ -160,9 +162,13 @@ class projectscontroller extends Controller
                 return redirect()->back();
             }
         }
-        
-
-
     }
+   public function trycode(){
+   
+    $posts = student_profile::where('user_id',Auth::user()->id)->first();
+    print_r($posts);
+
+
+   }
 
 }

@@ -1,16 +1,21 @@
 <?php
 
 namespace App\Http\Controllers\Public;
-
+use Arcanedev\NoCaptcha\Rules\CaptchaRule;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\college_name;
-use App\Models\college_page;
-use App\Models\alumni_profile;
-use App\Models\staff_profile;
-use App\Models\joinPage;
-use App\Models\User;
-use App\Models\post;
+use App\Models\{college_name,
+                college_page,
+                alumni_profile,
+                staff_profile,
+                student_profile,
+                sponsor_profile,
+                joinPage,
+                User,
+                post,
+                storie,
+                add_friend,
+            };
 use Session;
 use DB;
 use Illuminate\Validation\Rule;
@@ -19,7 +24,7 @@ class MainController extends Controller
 {
     //
     public function index(){
-        return view('Public.index');
+        return view('Public.Home.fronthome');
     }
     public function register(){
         return view('Public.auth.Register.index');
@@ -27,24 +32,6 @@ class MainController extends Controller
     public function login(){
         return view('Public.auth.Login.index');
     }
-    // public function home(){
-    //     $JoinId = joinPage::where('user_id',Auth::user()->id)->get();
-    //     // print_r($JoinId);
-    //     foreach($JoinId as $key => $value){
-    //         print_r($value->page_id);
-    //         $posts = post::where('college_page_id', $value->page_id)->get();
-    //         // echo '<pre>';
-    //         // print_r($posts);
-    //         // echo '</pre>';
-    //         foreach($posts as $d){            
-    //             echo($d->description);
-    //            echo($d->image);
-    //            echo '<br>';
-                
-    //         }
-    //     }
-    // }
-
     public function home(){
         if(Auth::user()){
         $postData = DB::table('joinPages')
@@ -55,8 +42,12 @@ class MainController extends Controller
         // echo '<pre>';
         // print_r($postData);
         // echo'</pre>';
-        $userdata = User::with(['student','staff','sponsor','alumni'])->where('id','=',Auth::user()->id)->first()->toArray();
-            // echo '<pre>';
+        $userdata = User::with(['student','staff','sponsor','alumni','friends.stories','friends.users','friends.student','friends.staff','friends.sponsor','friends.alumni'])
+        ->where('id', '=', Auth::user()->id)   
+        ->get()
+        ->toArray();   
+        // echo '<pre>';
+        // print_r($userdata);
         // dd(array_filter($userdata));
         // $us = array_filter($userdata);
         // if (array_key_exists("student",$us)){
@@ -66,7 +57,7 @@ class MainController extends Controller
         //     }else{
         //         echo 'working failed';
         //     }
-        // print_r($userdata['student']['name']);
+        // print_r($userdata[0]['student']);
         // echo '</pre>';
         // die();
         return view('Public.Home.index',compact('postData','userdata'));
@@ -76,37 +67,3 @@ class MainController extends Controller
     }
 }
 }
-
-
-
-// $postData = DB::table('college_pages')
-// ->select('staff_profiles.*', 'posts.*')
-// ->join('joinPages', 'college_pages.id', '=', 'joinPages.page_id')
-// ->join('posts', 'joinPages.page_id', '=', 'posts.college_page_id')
-// ->join('staff_profiles', 'joinPages.staff_profile_id', '=', 'staff_profiles.id')
-// ->where('user_id',Auth::user()->id)->get();
-// // echo '<pre>';
-// // print_r($postData);
-// // echo'</pre>';
-// return view('Public.Home.index',compact('postData'));
-
-
-
-
-
-
-// foreach($cat as $c){
-//     $product_id = null;
-//     $product_productname = null;
-//     $cat_id = $c->id;
-//     $data = \DB::table('products')->where('category',$cat_id)
-//     ->orWhere('category','like', $cat_id.'%')
-//     ->orWhere('category','like','%'.$cat_id.'%')
-//     ->orwhere('category','like','%'.$cat_id)->get();
-//     foreach($data as $d){            
-//         $product_id[] =  $d->id;
-//         $product_productname[] =  $d->productname;
-        
-//     }
-// $catWithId[] = array($c->category => array_combine($product_id ?? array(),$product_productname ?? array()));        
-// }
