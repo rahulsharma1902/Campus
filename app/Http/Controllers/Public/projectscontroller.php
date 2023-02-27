@@ -17,6 +17,7 @@ use App\Models\message;
 use App\Models\event;
 use App\Models\event_guest;
 use App\Models\sponsership;
+use App\Models\login_detail;
 use App\Models\project;
 use App\Models\projectmessage;
 use App\Mail\NotifyMail;
@@ -26,6 +27,7 @@ use DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Stevebauman\Location\Facades\Location;
 
 class projectscontroller extends Controller
 {
@@ -165,9 +167,21 @@ class projectscontroller extends Controller
     }
    public function trycode(){
    
-    $posts = student_profile::where('user_id',Auth::user()->id)->first();
-    print_r($posts);
+    $id = Auth::user()->id;
+    $ip = \Request::ip();
+    $data = new login_detail();
+    $data->user_id = $id;
+    $data->ip_address = $ip;
+    $data->save();
 
+    $data = login_detail::where('user_id',$id)->get();
+    $ipcount = count($data);
+    if($ipcount == 6){
+       $ipdata = login_detail::where('user_id',$id)->first();
+       $deleteip = $ipdata->id;
+       $delete = login_detail::find($deleteip);
+       $delete->delete();
+    }
 
    }
 

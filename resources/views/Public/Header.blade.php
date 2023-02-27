@@ -62,7 +62,7 @@
         @endif
         </ul>
     <ul class="navbar-nav mx-auto">
-        <a class="navbar-brand d-none d-md-block" href="#" title="campus-logo">
+        <a class="navbar-brand d-none d-md-block" href="/" title="campus-logo">
           <img src="{{asset('Profile_images')}}/167714088394.jpg" alt="">
         </a>
       

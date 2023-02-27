@@ -68,6 +68,7 @@
 
     </div>
     @yield('home')
+    @yield('content')
     @yield('register-content')
     @yield('login-content')
     @yield('student_profile')

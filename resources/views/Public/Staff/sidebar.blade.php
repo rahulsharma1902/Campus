@@ -9,7 +9,7 @@
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <?php if($user !== null){ ?>
-            <a href="@if($user->user_type == 3){{url('/my-account/staffprofile')}} @elseif($user->user_type == 4){{url('/my-account/sponsorprofile')}}@endif"
+            <a href="@if($user->user_type == 3){{url('/staff')}}/{{Auth::user()->username}} @elseif($user->user_type == 4){{url('/sponsor')}}/{{Auth::user()->username}}@endif"
                 class="nav-link">Profile</a>
             <?php } ?>
         </li>

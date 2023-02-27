@@ -13,9 +13,9 @@
 #buttoncontainer{
     margin-top:40%;
 }
-.btn{
+#btn{
     border-radius:0px;
-
+    color: black;
     /* border-color:black; */
 }
 #content{
@@ -68,16 +68,19 @@ h1{
     padding:20px;
 }
 </style>
-<section id ="firstsection">
+<section id ="firstsection" style="margin-top: -3rem;">
 <div class="container col-6"  >
+@if(Auth::guest())
+
         <div class="row">
             <div class="col-lg-6 text-right" id ="buttoncontainer">
-                <a href="/login" class="btn btn-block btn-outline-light btn-lg">Login</a>
+                <a href="/login" id = "btn" class="btn btn-block btn-danger btn-lg">Login</a>
             </div>
             <div class="col-lg-6 text-left" id ="buttoncontainer">
-                <a href="/register" class="btn btn-block btn-outline-light btn-lg">Register</a>
+                <a href="/register" id="btn" class="btn btn-block btn-success btn-lg">Register</a>
             </div>
         </div>
+@endif
 </div>
 </section>
 <section id="secondsection"> 

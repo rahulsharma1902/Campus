@@ -14,7 +14,7 @@
       <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="{{url('/my-account/studentprofile') }}" class="nav-link {{ (request()->segment(2) == 'studentprofile') ? 'active' : '' }}">
+            <a href="{{url('/student') }}/{{Auth::user()->username}}" class="nav-link {{ (request()->segment(1) == 'student') ? 'active' : '' }}">
               <i class="nav-icon fas fa-user"></i><p>Profile</p>
             </a>
           </li>
@@ -24,7 +24,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{url('/calendar')}}" class="nav-link {{ (request()->segment(1) == 'calendar') ? 'active' : '' }}">
               <i class="nav-icon fas fa-calendar-check"></i><p>Calendar</p>
             </a>
           </li>

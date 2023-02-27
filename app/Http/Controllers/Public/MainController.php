@@ -66,4 +66,17 @@ class MainController extends Controller
         return view('Public.Home.index',compact('postData'));
     }
 }
+
+     public function disabledaccount(){
+        return view('Public.auth.Disabled.index');
+     }
+
+     public function uniqueusername(Request $request){
+        if(User::where('username','=',$request->username)->exists()){  
+            return response()->json([false]);
+        }else{
+            return response()->json([true]);
+        }
+        
+     }
 }

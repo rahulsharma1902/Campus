@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-group">
                             <label for="username">User Name</label>
-                            <input type="text" class="form-control"name='username' id="username" aria-describedby="userHelp" placeholder="Enter username" required>
+                            <input type="text" class="username form-control"name='username' id="username" aria-describedby="userHelp" placeholder="Enter username" required>
                             <small id="userHelp" class="form-text text-muted">Your username must be unique.</small>
                        <span id="usernname" > </span>
                         </div>
@@ -47,7 +47,7 @@
                         </div>
                         <div class="form-group">
                             <label for="cpassword">Confirm-Password</label>
-                            <input type="password" name='confirmpassword' class="form-control" id="cpassword" placeholder="Confirm password" required>
+                            <input type="password" name='confirmpassword' class="form-control " id="cpassword" placeholder="Confirm password" required>
                         </div>
                         <div class="form-group">
                              <div class="g-recaptcha" data-sitekey="6LdcyKgkAAAAAD9dDh2p7bDIVc1V2zGZtsd2KIex"></div>
@@ -70,6 +70,8 @@
             if(password == cpassword){
                
             }else{
+                $(this).val("");
+                $(this).html("");
                 Swal.fire({
 							  icon: 'error',
 							  title: "Confirm password not matched!",
@@ -79,15 +81,82 @@
     });
     $(document).ready(function(){
         $('#real-name').change(function(){
+            var token = $("meta[name='csrf-token']").attr("content");
             str =$(this).val();
             varstr = str.replace(/ /g,'');
             num = '{{rand(1,10000)}}';
+            var username = varstr+num;
+            // var username = 'rahul';
+            // alert(username);
             // console.log(varstr+num);
-            $('#usernname').html('suggest: '+varstr+num);
-            $('#usernname').click(function(){
-               $('#username').val(varstr+num);
+            // $('#usernname').html('suggest: '+varstr+num);
+            // $('#usernname').click(function(){
+            //    $('#username').val(varstr+num);
+            // });
+
+                $.ajax({
+                method: 'get',
+                url: '/unique-username',
+                data: {
+                    _token: token,
+                    username: username
+                },
+                success: function(response) {
+                    // alert(response);
+                    // console.log(response);
+                    if(response[0] == true){
+                        $('#usernname').html('suggest: '+username);
+                        $('#usernname').click(function(){
+                            $('#username').val(username);
+                        });   
+                    }else{
+                        let r = (Math.random() + 1).toString(36).substring(7);
+                        // console.log("random", r);
+                        newusername = username+r;
+                        // console.log(newusername);
+                        $('#usernname').html('suggest: '+newusername);
+                        $('#usernname').click(function(){
+                            $('#username').val(newusername);
+                        }); 
+                    }
+                }
             });
         });
+    });
+</script>
+<!-- Check user name  -->
+<script>
+    $(document).ready(function(){
+        $('.username').on('input', function() {
+            // alert($(this).val());
+            var token = $("meta[name='csrf-token']").attr("content");
+            if($(this).val().length <= 4){
+                // alert('more');
+                $(this).addClass('is-invalid');
+            }else{
+                    $(this).removeClass('is-valid');
+                    $(this).removeClass('is-invalid');
+                    var username = $(this).val();
+                    $.ajax({
+                    method: 'get',
+                    url: '/unique-username',
+                    data: {
+                        _token: token,
+                        username: username
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if(response[0] == true){
+                            $('.username').addClass('is-valid');
+                        }else{
+                            $('.username').addClass('is-invalid');
+                        }
+                    }
+                });
+            }
+
+        });
+
     });
 </script>
 @endsection

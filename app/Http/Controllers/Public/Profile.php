@@ -17,15 +17,15 @@ class Profile extends Controller
     public function index(){
       if(Auth::user()){
       if(Auth::user()->user_type == 2){
-        return redirect('/my-account/studentprofile');
+        return redirect('/student/'.Auth::user()->username)->with('success', 'Welcome In Student Dashboard '.Auth::user()->username);
       }if(Auth::user()->user_type == 3){
-        return redirect('/my-account/staffprofile');
+        return redirect('/staff/'.Auth::user()->username)->with('success', 'Welcome In Staff Dashboard '.Auth::user()->username);
       }if(Auth::user()->user_type == 4){
-        return redirect('/my-account/sponsorprofile');
+        return redirect('/sponsor/'.Auth::user()->username)->with('success', 'Welcome In Sponsor Dashboard '.Auth::user()->username);
       }if(Auth::user()->user_type == 5){
-        return redirect('/my-account/alumniprofile');
+        return redirect('/alumni/'.Auth::user()->username)->with('success', 'Welcome In Alumni Dashboard '.Auth::user()->username);
       }if(Auth::user()->user_type == 1){
-        return redirect('/admindash/dashboard');
+        return redirect('/admindash/dashboard')->with('success', 'Welcome In Admin Dashboard '.Auth::user()->username);
       }else{
           return redirect('/');
       }

@@ -4,6 +4,7 @@ use App\Http\Controllers\Public\MainController;
 use App\Http\Controllers\auth\coustamAuthController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
 use App\Http\Controllers\Admin\Dashboard\userRequestController;
+use App\Http\Controllers\Admin\Dashboard\AccountUnableController;
 use App\Http\Controllers\Admin\colleges\Collegename;
 use App\Http\Controllers\Admin\colleges\Collegecourse;
 use App\Http\Controllers\Admin\colleges\CollegeDept;
@@ -31,6 +32,7 @@ use App\Http\Controllers\Public\Notification\NotificationController;
 use App\Http\Controllers\Public\Stories\StoriesController;
 use App\Http\Controllers\Public\chatmessage;
 
+use App\Http\Controllers\Public\Calendar\CalendarController;
 
 
 /*
@@ -53,7 +55,8 @@ Route::get('/admindash/dashboard/userrequests',[DashboardController::class, 'use
 Route::post('/admindash/dashboard/response',[userRequestController::class,'userrequestsresponse']);
 Route::get('/admindash/users',[DashboardController::class,'Users'])->middleware(Adminaccess::class);
 Route::post('/admindash/users/update',[DashboardController::class,'update'])->middleware(Adminaccess::class);
-
+Route::get('/admindash/dashboard/unable-request',[AccountUnableController::class, 'index'])->middleware(Adminaccess::class);
+Route::get('/activeAccount',[AccountUnableController::class, 'activeAccount'])->middleware(Adminaccess::class);
 // College
 Route::get('admindash/Colleges', function () {
     return view('Admin.Colleges.index');
@@ -95,6 +98,9 @@ Route::get('/saveregister', [coustamAuthController::class, 'register']);
 Route::get('/login', [MainController::class, 'login']);
 Route::get('/userlogin',[coustamAuthController::class, 'login']);
 
+Route::get('/disabled-account/{username}', [MainController::class, 'disabledaccount']);
+Route::get('/requnableaccount',[coustamAuthController::class, 'requnableaccount']);
+
 Route::get('/logout', [coustamAuthController::class, 'logout']);
 // Routes for Groups
 Route::get('/groups', [GroupsController::class, 'index']);
@@ -109,7 +115,7 @@ Route::get('/newmembers', [GroupsController::class, 'newmembers']);
 // Profile dashboard
 Route::get('/my-account',[Profile::class, 'index']);
 //Student Profile 
-Route::get('/my-account/studentprofile',[StudentProfile::class, 'index'])->middleware(StudentsProfile::class);
+Route::get('/student/{username}',[StudentProfile::class, 'index'])->middleware(StudentsProfile::class);
 Route::POST('/studentprofile/save',[StudentProfile::class, 'save'])->middleware(StudentsProfile::class);
 Route::post('/studentprofile/upload',[StudentProfile::class, 'profilepicture'])->middleware(StudentsProfile::class);
 Route::get('/studentprofile/getCoursesByCollege',[StudentProfile::class, 'getCoursesByCollege'])->middleware(StudentsProfile::class);
@@ -117,18 +123,18 @@ Route::get('/studentprofile/getCoursesByCollege',[StudentProfile::class, 'getCou
 
 
 // Alumni Profile
-Route::get('/my-account/alumniprofile',[AlumniProfile::class, 'index']);
+Route::get('/alumni/{username}',[AlumniProfile::class, 'index']);
 Route::POST('/alumniprofile/save',[AlumniProfile::class, 'save']);
 Route::post('/alumniprofile/upload',[AlumniProfile::class, 'profilepicture']);
 
 
 //Sponsorprofile
-Route::get('/my-account/sponsorprofile',[SponsorProfile::class,'index']);
+Route::get('/sponsor/{username}',[SponsorProfile::class,'index']);
 Route::post('/Sponsor/profile/upload',[SponsorProfile::class,'profilephoto']);
 Route::post('/Sponsor/profile/Sponsordata',[SponsorProfile::class,'AddSponsorData']);
 
 //Staffprofile
-Route::get('/my-account/staffprofile',[StaffProfile::class,'index']);
+Route::get('/staff/{username}',[StaffProfile::class,'index']);
 Route::post('/Staff/profile/upload',[StaffProfile::class,'profilephoto']);
 Route::post('/Staff/profile/insert',[StaffProfile::class,'AddStaffData']);
 Route::post('/Staff/profile/collegedata',[StaffProfile::class,'getcollegedata']);
@@ -245,3 +251,10 @@ Route::post('/uploadstory',[StoriesController::class, 'index']);
 
 //tryyashwant
 Route::any('/trycode',[projectscontroller::class,'trycode']);
+
+
+// calendar Routes
+Route::get('/calendar',[CalendarController::class, 'index']);
+
+//Unique user name 
+Route::get('/unique-username',[MainController::class, 'uniqueusername']);

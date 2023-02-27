@@ -5,7 +5,7 @@
         <div class="text-center dismiss alert alert-warning" id="danger-alert">
             <button type="button" class="close" data-dismiss="alert">x</button>
               <!-- <strong></strong> -->
-            <span class="text-center"><a href=""><em>{{$message}}</em></a></span>
+            <span class="text-center"><a href="/disabled-account/{{$message}}"><em>Send Request For Unable Your Account</em></a></span>
         </div>
         @endif
 </div>
