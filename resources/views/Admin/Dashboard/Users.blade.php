@@ -32,6 +32,7 @@
                       <th>User Type</th>
                     </tr>
                   </thead>
+             
                   <tbody class="text-center">
                     <?php
                     $count = 0;
@@ -48,7 +49,7 @@
                     <td>
                     <select class="usertype custom-select form-control-border border-width-2" id="usertype" data-id={{$u->id}}>
                     <option selected value="{{$u->usertype}}"><?php if($u->user_type == 2){ echo 'student'; }elseif($u->user_type ==3){ echo 'Staff'; }elseif($u->user_type ==4){ echo 'Sponsers'; }elseif($u->user_type ==5){ echo 'Alumni'; } ?></option>
-                    <option value="2" >Student</option>
+                    <option value="2">Student</option>
                     <option value="3">Staff</option>
                     <option value="5">Alumni</option>
                     <option value="4">Sponsors</option>
@@ -78,7 +79,13 @@
         data: {_token: '{{csrf_token()}}', id:id, usertype:usertype },
                 success: function(response)
                     {
-            alert(response);
+              Swal.fire({
+							  icon: 'success',
+							  title: "UserType Changed!",
+								text: ''  
+              }).then((value) => {
+              window.location.href = '{{url('admindash/users')}}';
+              });
             
             }
         });

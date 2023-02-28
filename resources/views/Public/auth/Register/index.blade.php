@@ -145,7 +145,7 @@
                         username: username
                     },
                     success: function(response) {
-                        console.log(response);
+                        // console.log(response);
                         if(response[0] == true){
                             $('.username').addClass('is-valid');
                         }else{

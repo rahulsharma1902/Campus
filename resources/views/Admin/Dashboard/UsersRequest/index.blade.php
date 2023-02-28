@@ -78,8 +78,13 @@
         data: {_token: '{{csrf_token()}}', id:id, res:res },
                 success: function(response)
                     {
-            alert(response);
-            location.reload();
+             Swal.fire({
+							  icon: 'success',
+							  title: "Approved!",
+								text: response  
+              }).then((value) => {
+              window.location.href = '{{url('admindash/dashboard/userrequests')}}';
+              });
             }
         });
     });
@@ -96,8 +101,13 @@
         data: {_token: '{{csrf_token()}}', id:id, res:res },
                 success: function(response)
                     {
-            alert(response);
-            location.reload();
+              Swal.fire({
+							  icon: 'error',
+							  title: "Denied!",
+								text: response  
+              }).then((value) => {
+              window.location.href = '{{url('admindash/dashboard/userrequests')}}';
+              });
             }
         });
     });

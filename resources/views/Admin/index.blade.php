@@ -40,6 +40,7 @@
         @yield('userrequests')
 
         @yield('Colleges')
+        @yield('content')
         @yield('collegeName')
         @yield('CollegeCourses')
         @yield('CollegeDept')
@@ -101,7 +102,13 @@ $(document).ready(function(){
             id: id
         },
         success: function(response) {
-            location.reload();
+            Swal.fire({
+							  icon: 'error',
+							  title: "deleted!",
+								text: 'college delted successfully' 
+              }).then((value) => {
+              window.location.href = '{{url('admindash/Colleges/name')}}';
+              });
         }
     });
 });
@@ -132,7 +139,13 @@ $('.deleteCourse').click(function(e) {
             id: id
         },
         success: function(response) {
-            location.reload();
+            Swal.fire({
+							  icon: 'error',
+							  title: "deleted!",
+							  text: 'courses deleted successfully'  
+              }).then((value) => {
+              window.location.href = '{{url('admindash/Colleges/Courses')}}';
+              });
         }
     });
 });
@@ -162,7 +175,13 @@ $(document).ready(function(){
             id: id
         },
         success: function(response) {
-            location.reload();
+            Swal.fire({
+							  icon: 'error',
+							  title: "deleted!",
+							  text: 'deleted deapartments successfully'  
+              }).then((value) => {
+              window.location.href = '{{url('admindash/Colleges/Dept')}}';
+              });
         }
     });
 });
@@ -186,7 +205,13 @@ $('.deleteposition').click(function(e) {
         dataType: 'json',
         data: { _token: '{{csrf_token()}}',id: id},
         success: function(response) {
-            location.reload();
+            Swal.fire({
+							  icon: 'error',
+							  title: "deleted!",
+							  text: 'deleted position successfully'  
+              }).then((value) => {
+              window.location.href = '{{url('admindash/Colleges/Position')}}';
+              });
         }
     });
 });
@@ -265,7 +290,7 @@ $(document).ready(function() {
     });
 });
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 </body>
 <!-- conver text editor to  -->
 

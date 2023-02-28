@@ -87,7 +87,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{url('admindash/Colleges') }}"
+                    <a href="{{url('/admindash/dashboard/unable-request')}}"
+                        class="nav-link text-{{ (request()->segment(3) == 'unable-request') ? 'info' : '' }}">
+                        <i class="fas fa-users nav-icon"></i>
+                        <p>Unable Request</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href=""
                         class="nav-link {{ (request()->segment(2) == 'Colleges') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-graduation-cap"></i>
                         <b><p style='color:black;'>
@@ -121,6 +128,13 @@
                         class="nav-link text-{{ (request()->segment(3) == 'Position') ? 'info' : '' }}">
                         <i class=" far fa-circle nav-icon"></i>
                         <p>College Positions</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{url('admindash/Colleges/addTemplate')}}"
+                        class="nav-link text-{{ (request()->segment(3) == 'addTemplate') ? 'info' : '' }}">
+                        <i class=" far fa-circle nav-icon"></i>
+                        <p>College Template</p>
                     </a>
                 </li>
                 <!-- College template -->

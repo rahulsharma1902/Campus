@@ -33,12 +33,32 @@
                                 <div class="story-container-1">
                                     <div class="single-create-story">
                                         <img src="{{asset('Profile_images')}}/{{$userdata[0][$profile]['picture']}}" class="single-create-story-bg">
-                                        <div class="create-story-author">
-                                        <label for="file"><i class="addstory fa fa-plus-circle fa-2x text-info"></i>
-                                           <p>Create a story</p></label>
-                                            <input type="file" id ="file" name="video" style="display:none">
-                                        </div> 
+                                            <div class="create-story-author">
+                                                <label for="file"><i class="addstory fa fa-plus-circle fa-2x text-info"></i>
+                                                <p>Create a story</p></label>
+                                                <input type="file" id ="file" name="video" style="display:none">
+                                            </div> 
                                     </div>
+                                    <?php for($i=0; $i<count($userdata[0]['friends']); $i++){ ?>
+                                        <?php print_r($i); ?>
+                                        <?php echo'<pre>'; print_r($userdata[0]['friends'][$i]['users']['username']); echo'</pre>'; ?>
+                                    <div class="single-story">
+                                        <img src="{{asset('Profile_images')}}/{{$userdata[0]['friends'][$i]['users']['picture'] ?? ''}}" class="single-story-bg">
+                                        <div class="story-author">
+                                            <img src="{{asset('Profile_images')}}/{{$userdata[0]['friends'][$i]['users']['picture'] ?? ''}}">
+                                            <p>{{$userdata[0]['friends'][$i]['users']['username'] ?? ''}}</p>
+                                        </div>
+                                    </div>
+                                   <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
                                     <script>
                                         $(document).ready(function(){
                                             $('#file').change(function(){
@@ -73,16 +93,6 @@
                                             });
                                         });
                                     </script>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 </section>
 <!-- End Story section -->

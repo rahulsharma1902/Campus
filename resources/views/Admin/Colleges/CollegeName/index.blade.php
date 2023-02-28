@@ -50,16 +50,21 @@
                 <tr>
                     <th style="width: 10px">#</th>
                     <th>College Name</th>
+                    <th style="width: 40px">College Members</th>
                     <th style="width: 40px">Template</th>
                     <th style="width: 40px">Edit</th>
                     <th style="width: 40px">Delete</th>
                 </tr>
             </thead>
             <tbody>
+                <?php $count = 0; ?>
                 @foreach($colleges as $c)
-                <tr>
-                    <td>1.</td>
+                <tr><?php $count = $count + 1; ?>
+                    <td>{{$count}}.</td>
                     <td>{{$c->college_name}}</td>
+                    <td>
+                        <a href="{{url('admindash/Colleges/collegemember')}}/{{$c->id}}"><span class="badge bg-warning">College_Members</span></a>
+                    </td>
                     <td>
                         <a href="" class="addtemplate" data-id="{{$c->id}}" data-name="{{$c->college_name}}">
                             <span class="badge bg-warning">Add Template</span>
@@ -95,8 +100,5 @@
         </table>
     </div>
 </section>
-<script>
-
-</script>
 
 @endsection
