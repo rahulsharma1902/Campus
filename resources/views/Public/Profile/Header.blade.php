@@ -16,6 +16,15 @@
     <script src="{{asset('')}}/admin/plugins/jquery/jquery.min.js"></script>
     <script src="{{asset('')}}/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
+    <link rel="stylesheet" href="{{ asset('admin')}}/plugins/summernote/summernote-bs4.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <style type="text/css">
+        #map {
+  height: 100%; /* The height is 400 pixels */
+  width: 100%; /* The width is the width of the web page */
+}
+    </style>
 </head>
 
 <body class="">
@@ -43,19 +52,22 @@
                                 @endif
     @yield('staff_profile')
     </div>
+    <!-- <h3>My Google Maps Demo</h3> -->
+    <!--The div element for the map -->
+    <!-- <div id="map"></div> -->
     <!-- jQuery -->
-    <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+    <!-- <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script> -->
     <script type="text/javascript">
-    $(document).ready(function() {
-        $('.ckeditor').ckeditor();
-    });
+    // $(document).ready(function() {
+    //     $('.ckeditor').ckeditor();
+    // });
     </script>
-
 
 
     <script src="{{asset('')}}/admin/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('')}}/admin/dist/js/demo.js"></script>
+    <script src="{{ asset('admin')}}/plugins/summernote/summernote-bs4.min.js"></script>
 </body>
 
 </html>

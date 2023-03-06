@@ -11,4 +11,7 @@ class comment_post extends Model
      */
     protected $table = 'comment_posts';
 
+    public function posts(){
+        return $this->belongsTo(news_feed::class);
+    }
 }

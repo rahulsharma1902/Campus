@@ -20,6 +20,9 @@
             <a href="{{url('/home/pages/')}}" class="nav-link">Pages</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
+            <a href="{{url('/collegePageUpdate')}}" class="nav-link">College-Page</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Profession</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">

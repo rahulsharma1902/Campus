@@ -4,7 +4,10 @@ namespace App\Http\Controllers\auth;
 use Arcanedev\NoCaptcha\Rules\CaptchaRule;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\{User,
+                requnableaccount,
+                login_detail,
+                };
 // use Auth;
 use Session;
 use Illuminate\Validation\Rule;
@@ -48,22 +51,39 @@ class coustamAuthController extends Controller
         $password = $request->get('password');
         if (Auth::attempt(['email' => $user, 'password' => $password]) || Auth::attempt(['username' => $user, 'password' => $password])) {
             // $request->session()->flush();
-            if(Auth::User()->status == 1){
+            if(Auth::user()->status == 1){
                 // $request->session()->flush();
-                $user = Auth::User();
-                $user_type =  Auth::user()->user_type; 
+                $user = Auth::user();
+                $user_type =  Auth::user()->user_type;
+                $id = Auth::user()->id;
+                $ip = \Request::ip();
+                $data = new login_detail();
+                $data->user_id = $id;
+                $data->ip_address = $ip;
+                $data->save();
+
+                $data = login_detail::where('user_id',$id)->get();
+                $ipcount = count($data);
+                    if($ipcount == 6){
+                    $ipdata = login_detail::where('user_id',$id)->first();
+                    $deleteip = $ipdata->id;
+                    $delete = login_detail::find($deleteip);
+                    $delete->delete(); 
+                    }
                 // print_r($user_type);
-                if($user_type == 1){
-                    return redirect('/admindash/dashboard')->with('success','Welcome in Admin Panel');
-                }else{
-                    // print_r(Auth::user());
-                    return redirect('/my-account')->with('success', 'Welcome '.$user->real_name.' '.$user->nick_name);
-                }
-            }elseif(Auth::User()->status == 2){
+                    if($user_type == 1){
+                        return redirect('/admindash/dashboard')->with('success','Welcome in Admin Panel');
+                        }else{
+                        // print_r(Auth::user());
+                        return redirect('/my-account')->with('success', 'Welcome '.$user->real_name.' '.$user->nick_name);
+                    }
+            }elseif(Auth::user()->status == 2){
+                // session()->get('user-id', Auth::user()->id);
+                $userName = Auth::user()->username;
                 Auth::logout();
                 Session::flush();
                 // echo 'By to many attemp Your account has been disabled';
-                return redirect()->back()->with('warning', 'By to many attemp Your account has been disabled.Send Mail For Enable Your Account');
+                return redirect()->back()->with('warning', $userName);
             }else{
                 Auth::logout();
                 Session::flush();
@@ -102,11 +122,6 @@ class coustamAuthController extends Controller
                 }else{
                     return redirect()->back()->with('error', 'Incorrect password');
                 }
-                // echo '<pre>';
-        //  print_r(session()->all());
-        //  echo '</pre>';
-        //  Session::flush();
-         
         }else{
         return redirect('/login')->with('error', 'Incorrect email or username');
         }
@@ -138,10 +153,27 @@ class coustamAuthController extends Controller
     //     return redirect('/login')->with('error', 'Incorrect email or password');
     // }
     // }
+        public function requnableaccount(Request $request){
+            // print_r($request->all());
+            $validated = $request->validate([
+                        'g-recaptcha-response' => 'required',
+                    ]);
+            if($request){
+                $user_id = User::where('username', '=', $request->username)->first();
+                $account = new requnableaccount();
+                $account->user_id = $user_id->id;
+                $account->reason = $request->reason;
+                $account->save();
+                return redirect('/login')->with('success', 'Your Account Activate In 24Hours');
+            }else{
+                return redirect()->back()->with('error', '<em>Something went wrong.</em>');
+            }
+
+        }
     public function logout(){
         Auth::logout();
         Session::flush();
         // $request->session()->flush();
-        return redirect('/login')->with('success', 'You have been logged out!');;
+        return redirect('/login')->with('success', 'You have been logged out!');
     }
 }

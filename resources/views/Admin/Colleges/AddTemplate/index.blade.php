@@ -43,7 +43,7 @@
                     <td style="width: 20px">
                
                         <select name="" id="" class="form-control moderator{{$data[$i]['id']}}">
-                            <option value="0" selected disabled>SELECT MODERATOR</option>
+                            <option value="0" selected disabled>{{$data[$i]['collegepage']['moderator']['name'] ?? 'SELECT MODERATOR'}}</option>
                             @for($x=0;$x < count($data[$i]['moderators']);$x++)
                                 <option value="{{$data[$i]['moderators'][$x]['id'] ?? ''}}">{{$data[$i]['moderators'][$x]['name'] ?? 'No Moderator Found'}}</option>
                             @endfor
@@ -51,18 +51,50 @@
                     
                     </td>
                     <td style="width: 20px"><select name="" id="" class="form-control template{{$data[$i]['id']}}">
+                    @if($data[$i]['collegepage_count'] == 0)
                         <option value="0" selected disabled>SELECT TEMPLATE</option>
+                        @else
+                        <option value="{{$data[$i]['collegepage']['template_id']}}" selected disabled>
+                            <?php if($data[$i]['collegepage']['template_id'] == 1){ echo "Template One"; }
+                            elseif($data[$i]['collegepage']['template_id'] == 2){ echo "Template Two"; } 
+                            else{ echo ' SELECT TEMPLATE'; }?>
+                        </option>
+                       
+                        @endif
                         <option value="1">Template 1</option>
                         <option value="2">Template 2</option>
                     </select></td>
-                    <th style="width: 20px"><button class="btn btn-info btn-block create-template" college-id="{{$data[$i]['id'] ?? ''}}">CREATE TEMPLATE</button></th>
+                    <th style="width: 20px">
+                    @if($data[$i]['collegepage_count'] == 0)
+                    <button class="btn btn-info btn-block create-template " data-id="{{$data[$i]['collegepage_count'] ?? ''}}" college-id="{{$data[$i]['id'] ?? ''}}">CREATE TEMPLATE</button></th>
+                    @else
+                    <button class="btn btn-success btn-block alredygen">Already Genrated</button>
+                    @endif
                 </tr>
                 @endfor 
             </tbody>
         </table>
     </div>
+    <div class="d-none"> <button class="useriddbtn" data-id="1">View Image</button></div>  
 </section>
 <script>
+    $(document).ready(function () {
+        // $('.useriddbtn').trigger('click');  
+        $('.alredygen').on('click', function () {
+            Swal.fire({
+							  icon: 'warning',
+							  title: "Template Already Genrated",
+              });
+        });   
+    });
+</script>
+    
+<script>
+    //    $('.useriddbtn').on('click', function () {
+    //         alert('clicked');
+    //         $('.new').trigger('click');
+    //     });
+
     $(document).ready(function () {
         $('.create-template').on('click', function () {
             // alert($(this).attr('college-id'));
@@ -71,6 +103,8 @@
             var moderator_id = $('.moderator'+college_id).val();
             var template_id = $('.template'+college_id).val();
             // alert(moderator_id);
+            // alert(college_id);
+            // alert(template_id);
             if(moderator_id == null || template_id == null){
                 Swal.fire({
 							  icon: 'error',
@@ -82,7 +116,9 @@
                     url: '/templatecreat',
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        college_id: college_id
+                        college_id: college_id,
+                        moderator_id:moderator_id,
+                        template_id:template_id,
                     },
                     success: function(response) {
                         if(response == true){
@@ -90,6 +126,7 @@
                                 icon: 'success',
                                 title: "Done To Create Template",
                                 });
+                                window.location.href = '{{url('/templategen/')}}'+'/'+college_id;
                         }else{
                             Swal.fire({
                                 icon: 'error',

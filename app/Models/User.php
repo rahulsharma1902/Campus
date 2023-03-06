@@ -58,17 +58,6 @@ class User extends Authenticatable
     public function followers(){
         return $this->hasMany(add_friend::class,'user_id', 'id');
     }
-    // public function  profiles($user_id){
-    //     if($user_id == 2){
-    //         return $this->hasOne(student_profile::class,'user_id', 'id');
-    //     }elseif($user_id == 3){
-    //         return $this->hasOne(staff_profile::class,'user_id', 'id');
-    //     }elseif($user_id == 4){
-    //         return $this->hasOne(sponsor_profile::class,'user_id', 'id');
-    //     }elseif($user_id == 5){
-    //         return $this->hasOne(alumni_profile::class,'user_id', 'id');
-    //     }
-    // }
 
     public function student(){
         return $this->hasOne(student_profile::class);
@@ -87,5 +76,15 @@ class User extends Authenticatable
     }
 
 
+    public function stories(){
+        return $this->hasOne(stories::class);
+    }
+    public function friends(){
+        return $this->hasMany(add_friend::class,'user_id', 'id');
+    }
 
+    public function unbalerequest(){
+        return $this->hasOne(requnableaccount::class);
+    }
+   
 }

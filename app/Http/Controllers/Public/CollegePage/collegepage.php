@@ -12,6 +12,7 @@ use App\Models\{
                     User,
                     post,
                     notification,
+                    joinPage,
                 };
 // use App\Models\joinPage;
 use Session;
@@ -22,13 +23,27 @@ class collegepage extends Controller
 {
     //
     public function index(){
-        $college_page = college_page::all();
+        $college_page = college_page::with('join')->get();
+        // echo '<pre>';
+        // print_r($college_page);
+        // echo '</pre>';
+        // die();
         return view('Public.Home.CollegePages.index',compact('college_page'));
     }
-
+    public function joinflw(Request $request){
+        if(Auth::user()){
+        if(DB::table('joinPages')->where('page_id',$request->page_id)->where('user_id',Auth::user()->id)->exists()){
+            return response()->json([true,'UNFOLLOW']);
+        }else{
+            return response()->json([true,'FOLLOW']);
+        }
+    }else{
+        return response()->json([false]);
+    }
+    }
     public function SinglePage(Request $request,$id){
         if(Auth::user()){
-        $SinglePage = college_page::where('id',$id)->first();
+        $SinglePage = joinPage::where('id',$id)->first();
        if(Auth::user()->user_type == 3){  
           $staffData =   DB::table('staff_profiles')->where('user_id',Auth::user()->id)->first();
         //   print_r($staffData->college_id);
@@ -93,6 +108,12 @@ class collegepage extends Controller
             $post = post::find($request->post_id)->delete();
             return response()->json('Post deleted successfully.');
         }
+    }
+
+    public function collegepage($id){
+        $data = DB::table('templates')->where('college_page_id','=',$id)->first();
+        // dd($data);
+        return view('Public.Home.CollegePages.collegepage',compact('data'));
     }
     }
 

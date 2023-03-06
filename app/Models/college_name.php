@@ -13,4 +13,10 @@ class college_name extends Model
     {
         return $this->belongsTo(student_profile::class, 'id', 'college_id');
     }
+    public function moderators(){
+        return $this->hasMany(staff_profile::class, 'college_id', 'id');
+    }
+    public function collegepage(){
+        return $this->hasOne(college_page::class, 'college_id', 'id');
+    }
 }

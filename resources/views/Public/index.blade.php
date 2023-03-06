@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Campus</title>
 
 
@@ -22,15 +23,27 @@
   <script src="{{ asset('admin')}}/plugins/jquery-ui/jquery-ui.min.js"></script>
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 
+  <!-- Code for text editor  -->
+  <link rel="stylesheet" href="{{ asset('admin')}}/plugins/summernote/summernote-bs4.min.css'}}">
+  <!-- End of code of text editor -->
   <!-- Bootstrap 4 -->
   <script src="{{ asset('admin')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
  <!-- Link for story -->
   <link rel="stylesheet" href="{{ asset('coustam.css') }}">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <!-- End Story Links -->
-<!-- script for rechapche -->
 
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<!-- Script for MAP -->
+<script src="https://maps.googleapis.com/maps/api/jskey=AIzaSyAARQsQLsJM2S85cr60Eam3AaaYF98VBpU&libraries=places"  async defer></script>
+
+    <style type="text/css">
+        #map {
+          height: 400px;
+        }
+    </style>
+ <!-- End Map Script -->
+ <!-- script for rechapche -->
+ <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <style>
     .hidden{
@@ -67,6 +80,7 @@
         @endif
 
     </div>
+
     @yield('home')
     @yield('content')
     @yield('register-content')
@@ -83,7 +97,6 @@
     @yield('chatmsg')
     @yield('notification')
     
-
     <!-- </div> --><script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
     @include('Public.Footer')
 

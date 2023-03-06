@@ -17,4 +17,5 @@ class joinPage extends Model
     public function collegepage(){
         return $this->belongsTo(college_page::class,'page_id','id');
     }
+    
 }

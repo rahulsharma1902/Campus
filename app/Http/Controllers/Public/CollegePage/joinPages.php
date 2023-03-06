@@ -64,5 +64,21 @@ class joinPages extends Controller
         return response()->json('Failed To Join Page');
     }
     }
-
+    public function join(Request $request){
+        if(Auth::user()){
+        if(DB::table('joinPages')->where('page_id',$request->page_id)->where('user_id',Auth::user()->id)->exists()){
+            DB::table('joinPages')->where('page_id',$request->page_id)->where('user_id',Auth::user()->id)->delete();
+            return response()->json([true,'UNFOLLOW']);
+        }else{
+            $joinPage = new joinPage();
+            $joinPage->page_id = $request->page_id;
+            $joinPage->user_id = Auth::user()->id;
+            $joinPage->status = 1;
+            $joinPage->save();
+            return response()->json([true,'FOLLOW']);
+        }
+    }else{
+        return response()->json([false]);
+    }
+}
     }

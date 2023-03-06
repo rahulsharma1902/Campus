@@ -88,6 +88,17 @@ Route::get('admindash/Colleges/getModerator/',[CollegeTemplate::class,'getModera
 // Route::get('admindash/Colleges/createTemplate/{id}',[CollegeTemplate::class,'index']);
 Route::post('admindash/Colleges/createTemplate',[CollegeTemplate::class,'createTemplate']);
 
+// Add Colege Template
+Route::get('admindash/Colleges/addTemplate',[CollegeTemplate::class,'addTemplate'])->middleware(Adminaccess::class);
+Route::get('/templatecreat',[CollegeTemplate::class,'templatecreat']);
+Route::get('/templategen/{id}',[CollegeTemplate::class,'templategen']);
+Route::get('/trycodecreat',[CollegeTemplate::class,'trycode']);
+Route::post('/addtemplatedata',[CollegeTemplate::class,'addtemplatedata']);
+// Route::match(['get', 'post','PUT'],'/addtemplatedata',[CollegeTemplate::class,'addtemplatedata']);
+Route::get('/trytemplate', function () {
+    $data = DB::table('templates')->where('id','=',108)->first();
+    return view('Admin.Templates.tamplate1',compact('data'));
+});
 
 Route::get('/',[MainController::class, 'index']);
 Route::get('/home',[MainController::class, 'home']);

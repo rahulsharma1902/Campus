@@ -42,25 +42,17 @@
         <div class="card-footer">
 
             <div class="row">
-                <!-- <div class="col-sm-4 border-right">
+                <div class="col-sm-6">
                     <div class="description-block">
-                        <h5 class="description-header">{{$c_p->population}}</h5>
-                        <span class="description-text">population</span>
-                    </div>
- -->
-                <!-- </div> -->
-                <div class="col-lg-8 col-sm-4 border-right">
-                    <div class="description-block">
-                        <p class="description-header">{{$c_p->address}}</p>
-                        <span class="description-text"><i class="fas fa-map-marker-alt"></i></span>
+                    <button class="btn btn-info btn-block btn-sm join" id="join{{$c_p->id}}" data-id="{{$c_p->id}}">JOIN PAGE</button>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <div class="description-block">
-                    <a href="/collegePages/{{$c_p->id}}" class='btn btn-warning'>View Page </a>
+                    <a href="/collegepage/{{$c_p->id}}" class='btn btn-warning btn-block btn-sm'>VIEW PAGE</a>
                     </div>
-                </div>
-
+                </div> 
+                <div class="d-none"> <button class="useriddbtn" data-id="{{$c_p->id ?? ''}}"><em>join</em></button></div>              
             </div>
 
         </div>
@@ -68,6 +60,88 @@
 
 </div>
 @endforeach
-
 </div>
+<script>
+    $(document).ready(function () {
+        $('.useriddbtn').trigger('click');
+   
+        
+    });
+</script>
+<script>
+         $('.useriddbtn').on('click', function () {
+            var page_id = $(this).attr('data-id');
+            var token = $("meta[name='csrf-token']").attr("content");
+            $.ajax({
+                method: 'get',
+                url: '{{url('/joinflw')}}',
+                dataType: 'json',
+                data: {
+                    _token: token,
+                    page_id: page_id,
+                },
+                success: function(response) {
+                    $('#join'+page_id).removeClass('btn-danger');
+                    $('#join'+page_id).removeClass('btn-info');
+                    if(response[0] == true){
+                    if(response[1] == 'UNFOLLOW'){
+                        $('#join'+page_id).addClass('btn-danger');
+                        $('#join'+page_id).html('UNFOLLOW');
+                    }else{
+                        $('#join'+page_id).addClass('btn-info');
+                        $('#join'+page_id).html('JOIN PAGE');
+                    }
+                }
+                }
+            });
+
+        });
+
+</script>
+<script>
+    $(document).ready(function () {
+        $('.join').on('click', function () {
+            var page_id = $(this).attr('data-id');
+            var token = $("meta[name='csrf-token']").attr("content");
+            $.ajax({
+                method: 'get',
+                url: '{{url('/join')}}',
+                dataType: 'json',
+                data: {
+                    _token: token,
+                    page_id: page_id,
+                },
+                success: function(response) {
+                    $('#join'+page_id).removeClass('btn-danger');
+                    $('#join'+page_id).removeClass('btn-info');
+                    if(response[0] == true){
+                    if(response[1] == 'UNFOLLOW'){
+                        console.log(response);
+                        Swal.fire({
+                                icon: 'success',
+                                title: "YOU UNFOLLOW-PAGE",
+                                });
+                        $('#join'+page_id).addClass('btn-info');
+                        $('#join'+page_id).html('JOIN PAGE');
+                    }
+                    if(response[1] == 'FOLLOW'){
+                        console.log(response);
+                        Swal.fire({
+                                icon: 'success',
+                                title: "YOU JOIN-PAGE",
+                                });
+                        $('#join'+page_id).addClass('btn-danger');
+                        $('#join'+page_id).html('UNFOLLOW PAGE');
+                    }
+                }else{
+                    Swal.fire({
+                                icon: 'error',
+                                title: "Failed To Find Page",
+                                });
+                }
+                }
+            });
+    });
+});
+</script>
 @endsection

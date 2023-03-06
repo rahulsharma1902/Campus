@@ -15,4 +15,7 @@ class staff_profile extends Model
     public function users(){
         return $this->belongsTo(User::class);
     }
+    public function department(){
+        return $this->hasOne(position::class, 'id', 'position_id');
+    }
 }
