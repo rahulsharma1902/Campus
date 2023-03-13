@@ -126,7 +126,7 @@
                         <label for="College" class="col-sm-2 col-form-label">College</label>
                         <div class="col-sm-10">
                            
-                        <select class="form-control select2 select2-hidden-accessible" required id ="College" name="college_id" style="width: 100%;" data-select2-id="9" tabindex="-1" aria-hidden="true">
+                        <select class="form-control select2 select2-hidden-accessible" required id="College" name="college_id" style="width: 100%;" data-select2-id="9" tabindex="-1" aria-hidden="true">
                             <option disabled selected value="">Select Your College Name</option>
                             @foreach($college as $c)
                             <option value="{{$c->id}}" >{{$c->college_name}}</option>

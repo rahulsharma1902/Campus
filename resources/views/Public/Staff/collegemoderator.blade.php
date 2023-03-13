@@ -29,11 +29,10 @@
     </div>
     @endif
     <!-- end error/success -->
-
     <div class="container col-12">
         <div class="card card-info mt-3">
             <div class="card-header">
-                <h3 class="card-title"><b>C R E A T E - T E M P L A T E</b></h3>
+                <h3 class="card-title text-center"><b>U P D A T E - C O L L E G E - P A G E</b></h3>
             </div>
             <div class="card-body">
                 <form action="{{ url('/updateCollegePage')}}" method='POST'enctype="multipart/form-data">
@@ -46,12 +45,6 @@
                             <label for="college_name">Name</label>
                             <input type="text" class='form-control' id='college_name' value="{{$college_page->college_name ?? ''}}" name='college_name'>
                         </div>
-
-                        <!-- <div class="form-group">
-                            <label for="editor">History</label>
-                            <textarea class='ckeditor text-dark' rows="5" value="<?php print_r($college_page->history) ?? ''?>" name="history" cols="50" id="editor"
-                                placeholder="History....."></textarea>
-                        </div> -->
                         <div class="form-group">
                             <label for="">History</label>
                             <textarea id="summernote" class="summernote" rows="5" name="history" cols="50">
@@ -98,11 +91,6 @@
                             </div>
                         </div>
 
-                        <!-- <div class="form-group">
-                            <label for="information_editor">Information Section</label>
-                            <textarea class='ckeditor text-dark' rows="5" value="<?php print_r($college_page->information_section) ?? ''?>" name="information_section" cols="50" id="information_editor"
-                                placeholder="information....."></textarea>
-                        </div>  -->
                         <div class="form-group">
                             <label for="">Information Section</label>
                             <textarea id="summernote" class="summernote" rows="5" name="information_section" cols="50">

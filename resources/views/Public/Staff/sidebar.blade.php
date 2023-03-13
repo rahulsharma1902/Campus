@@ -16,12 +16,26 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="/projects" class="nav-link">Project Add</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
+        <!-- <li class="nav-item d-none d-sm-inline-block">
             <a href="{{url('/home/pages/')}}" class="nav-link">Pages</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{url('/collegePageUpdate')}}" class="nav-link">College-Page</a>
-        </li>
+        </li> -->
+        @php
+            $data = App\Models\staff_profile::With('collegepage')->WithCount('moderator')->where('user_id', '=', Auth::User()->id)->first();
+            
+        @endphp
+            @if($data->collegepage)
+                <div class="dropdown show">
+                    <a class="nav-item btn text-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        College Page
+                    </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{{url('/addcollegepost')}}">Add College Post</a>
+                    @if($data->moderator_count > 0)
+                    <a class="dropdown-item" href="{{url('/collegePageUpdate')}}">Update College Page</a>
+                    @endif
+                </div>
+                </div>
+            @endif
         <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Profession</a>
         </li>
